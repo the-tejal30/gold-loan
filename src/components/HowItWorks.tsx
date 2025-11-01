@@ -1,23 +1,29 @@
-import { FileText, Scale, Banknote } from "lucide-react";
+import { MapPin, BadgeCheck, Scale, Banknote } from "lucide-react";
 
 const steps = [
   {
-    icon: FileText,
-    title: "Submit Enquiry",
-    description: "Fill out our simple online form with your loan requirements and contact details",
+    icon: MapPin,
+    title: "Visit Branch & Carry ID",
+    description: "Find your nearest branch and bring Aadhaar card for KYC verification. We have 100+ branches across India",
     number: "01",
   },
   {
     icon: Scale,
-    title: "Gold Evaluation",
-    description: "Our experts accurately assess your gold using certified testing methods",
+    title: "Gold Purity Check",
+    description: "We test your gold using German spectrometers for accurate valuation. The process takes just 15 minutes",
     number: "02",
   },
   {
-    icon: Banknote,
-    title: "Instant Disbursal",
-    description: "Receive your loan amount directly in your bank account within minutes",
+    icon: BadgeCheck,
+    title: "KYC & Payment",
+    description: "Complete quick KYC verification and get instant payment transferred to your bank account",
     number: "03",
+  },
+  {
+    icon: Banknote,
+    title: "Get Cash Instantly",
+    description: "Receive money directly in your bank account. You can verify the transfer before leaving our branch",
+    number: "04",
   },
 ];
 
@@ -34,12 +40,12 @@ const HowItWorks = () => {
             How It Works
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Get your gold loan in three simple steps
+            Get cash for your gold in four easy steps
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative">
             {/* Connection Lines */}
             <div className="hidden md:block absolute top-1/3 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-primary via-accent to-primary opacity-30" />
 

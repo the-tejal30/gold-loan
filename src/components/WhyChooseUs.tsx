@@ -1,25 +1,25 @@
-import { Shield, Zap, TrendingDown, Award } from "lucide-react";
+import { Shield, BadgeCheck, Gauge, Banknote } from "lucide-react";
 
 const features = [
   {
-    icon: Zap,
-    title: "Instant Approval",
-    description: "Get your loan approved within 10 minutes with minimal documentation",
+    icon: Gauge,
+    title: "German Technology",
+    description: "Accurate gold purity testing using advanced German spectrometers for tamper-proof valuation",
   },
   {
-    icon: TrendingDown,
-    title: "Low Interest Rates",
-    description: "Competitive rates starting from 0.5% per month with flexible repayment",
+    icon: Banknote,
+    title: "Instant Payment",
+    description: "Money transferred directly to your bank account. Confirm before you leave our branch",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Transparent Process",
+    description: "Live market rates, zero hidden charges, and complete transparency at every step",
   },
   {
     icon: Shield,
-    title: "Secure Process",
-    description: "Your gold is stored in bank-grade lockers with complete insurance coverage",
-  },
-  {
-    icon: Award,
-    title: "Trusted Evaluation",
-    description: "Certified professionals ensure accurate gold valuation using advanced technology",
+    title: "Safe & Secure",
+    description: "Bank-grade security with KYC verification and insurance coverage for your gold",
   },
 ];
 
@@ -29,10 +29,10 @@ const WhyChooseUs = () => {
       <div className="container mx-auto px-4">
         <div className="text-center space-y-4 mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Why Choose Us
+            Why Choose Us?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience the best-in-class gold loan services with transparency and trust
+            We make selling or pledging gold stress-free with cutting-edge technology and transparent pricing
           </p>
         </div>
 

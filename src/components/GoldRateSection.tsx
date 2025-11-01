@@ -16,10 +16,10 @@ const GoldRateSection = () => {
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="space-y-4 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Live Gold Rate
+              Check Live Gold Rate
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Stay updated with real-time gold prices in your area
+              Guaranteed gold rate across all our branches
             </p>
           </div>
 

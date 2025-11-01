@@ -35,7 +35,7 @@ const Header = () => {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
               <span className="text-2xl font-bold text-secondary">G</span>
             </div>
-            <span className="text-xl font-bold text-foreground">GoldLoan</span>
+            <span className="text-xl font-bold text-foreground">Gold Money</span>
           </div>
 
           {/* Desktop Navigation */}

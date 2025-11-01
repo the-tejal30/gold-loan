@@ -3,22 +3,22 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Rajesh Kumar",
-    location: "Mumbai",
-    rating: 5,
-    text: "Excellent service! Got my loan approved in just 8 minutes. The staff was very professional and the interest rates are the best in the market.",
-  },
-  {
-    name: "Priya Sharma",
-    location: "Delhi",
-    rating: 5,
-    text: "Very transparent process with no hidden charges. They valued my gold fairly and the entire process was hassle-free. Highly recommended!",
-  },
-  {
-    name: "Amit Patel",
+    name: "Ramesh Reddy",
     location: "Bangalore",
     rating: 5,
-    text: "I was amazed by how quick and simple everything was. The digital process made it super convenient and I got the money in my account within 15 minutes.",
+    text: "Very transparent process. The German machine checked my gold purity accurately and I got the money in my bank account immediately. The staff explained everything clearly.",
+  },
+  {
+    name: "Lakshmi Nair",
+    location: "Kerala",
+    rating: 5,
+    text: "I was worried about selling my gold but the team made me feel comfortable. KYC was quick with just Aadhaar card and the rate they gave was very fair. Highly recommended!",
+  },
+  {
+    name: "Venkat Rao",
+    location: "Hyderabad",
+    rating: 5,
+    text: "Needed urgent cash for medical emergency. The whole process took only 15 minutes and money was transferred instantly. Thank you for the quick service!",
   },
 ];
 

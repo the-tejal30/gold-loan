@@ -16,10 +16,10 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                 <span className="text-2xl font-bold text-secondary">G</span>
               </div>
-              <span className="text-2xl font-bold">GoldLoan</span>
+              <span className="text-2xl font-bold">Gold Money</span>
             </div>
             <p className="text-white/80 leading-relaxed">
-              Your trusted partner for instant gold loans with transparent processes and competitive rates.
+              Largest organized gold buyer with 100+ branches. Get instant cash for your gold with transparent pricing and German technology.
             </p>
           </div>
 
@@ -49,19 +49,19 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <span className="text-white/80">
-                  123 Financial District, Mumbai, Maharashtra 400001
+                  100+ Branches across Karnataka, Andhra Pradesh, Kerala & Telangana
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="tel:+911234567890" className="text-white/80 hover:text-primary transition-colors">
-                  +91 123 456 7890
+                <a href="tel:+919590704444" className="text-white/80 hover:text-primary transition-colors">
+                  +91 95907 04444
                 </a>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@goldloan.com" className="text-white/80 hover:text-primary transition-colors">
-                  info@goldloan.com
+                <a href="mailto:support@goldmoney.com" className="text-white/80 hover:text-primary transition-colors">
+                  support@goldmoney.com
                 </a>
               </li>
             </ul>
@@ -97,7 +97,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-white/60 text-sm">
-              © {currentYear} GoldLoan. All rights reserved.
+              © {currentYear} Gold Money. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-white/60 hover:text-primary transition-colors">

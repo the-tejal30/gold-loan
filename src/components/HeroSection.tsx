@@ -39,14 +39,15 @@ const HeroSection = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-            Turn Your Gold into
+            Turning Your Gold Into
             <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-glow">
-              Instant Cash
+              Instant Money
             </span>
           </h1>
 
           <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Get quick, secure gold loans at competitive interest rates. No hidden charges, instant approval, and hassle-free processing.
+            Get instant cash against your gold with transparent pricing. 
+            Trusted by 50,000+ customers across India.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
@@ -67,9 +68,9 @@ const HeroSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 max-w-3xl mx-auto">
             {[
-              { label: "Instant Approval", value: "10 Minutes" },
-              { label: "Interest Rate", value: "0.5% p.m." },
-              { label: "Max Loan Amount", value: "₹50 Lakhs" },
+              { label: "Process Time", value: "15 Minutes" },
+              { label: "Interest Rate", value: "From 0.5%" },
+              { label: "Branches", value: "100+" },
             ].map((stat, index) => (
               <div
                 key={index}

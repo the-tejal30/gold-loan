@@ -34,10 +34,10 @@ const EnquiryForm = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center space-y-4 mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Get Your Gold Loan
+              Get Instant Cash for Your Gold
             </h2>
             <p className="text-lg text-muted-foreground">
-              Fill in your details and we'll get back to you instantly
+              Fill in your details and our team will contact you immediately
             </p>
           </div>
 
