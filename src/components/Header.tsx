@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
@@ -74,12 +73,12 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Button
+            <button
               onClick={() => scrollToSection("enquiry")}
-              className="hidden md:inline-flex bg-gradient-to-r from-primary to-accent hover:shadow-[var(--shadow-gold)] transition-all duration-300 text-secondary font-semibold"
+              className="hidden md:inline-flex px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent hover:shadow-[var(--shadow-gold)] transition-all duration-300 text-secondary font-semibold"
             >
               Apply Now
-            </Button>
+            </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -123,12 +122,12 @@ const Header = () => {
             >
               Testimonials
             </button>
-            <Button
+            <button
               onClick={() => scrollToSection("enquiry")}
-              className="w-full bg-gradient-to-r from-primary to-accent text-secondary font-semibold"
+              className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-secondary font-semibold transition-all duration-300 hover:shadow-[var(--shadow-gold)]"
             >
               Apply Now
-            </Button>
+            </button>
           </nav>
         )}
       </div>
