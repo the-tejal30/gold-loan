@@ -10,13 +10,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
-      style={{
-        background: `linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--navy-light)) 100%)`,
-      }}
-    >
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-secondary via-secondary/95 to-background pt-20">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img

@@ -14,7 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      gold_rates: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          effective_date: string
+          id: string
+          rate_18k: number
+          rate_22k: number
+          rate_24k: number
+          silver_rate: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          effective_date?: string
+          id?: string
+          rate_18k: number
+          rate_22k: number
+          rate_24k: number
+          silver_rate?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          effective_date?: string
+          id?: string
+          rate_18k?: number
+          rate_22k?: number
+          rate_24k?: number
+          silver_rate?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      release_pledge_forms: {
+        Row: {
+          consent_given: boolean
+          financier_name: string
+          id: string
+          loan_amount: number
+          location: string
+          mobile_number: string
+          name: string
+          submitted_at: string
+          weight_grams: number
+        }
+        Insert: {
+          consent_given?: boolean
+          financier_name: string
+          id?: string
+          loan_amount: number
+          location: string
+          mobile_number: string
+          name: string
+          submitted_at?: string
+          weight_grams: number
+        }
+        Update: {
+          consent_given?: boolean
+          financier_name?: string
+          id?: string
+          loan_amount?: number
+          location?: string
+          mobile_number?: string
+          name?: string
+          submitted_at?: string
+          weight_grams?: number
+        }
+        Relationships: []
+      }
+      sell_gold_forms: {
+        Row: {
+          consent_given: boolean
+          id: string
+          location: string
+          mobile_number: string
+          name: string
+          submitted_at: string
+          weight_grams: number
+        }
+        Insert: {
+          consent_given?: boolean
+          id?: string
+          location: string
+          mobile_number: string
+          name: string
+          submitted_at?: string
+          weight_grams: number
+        }
+        Update: {
+          consent_given?: boolean
+          id?: string
+          location?: string
+          mobile_number?: string
+          name?: string
+          submitted_at?: string
+          weight_grams?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

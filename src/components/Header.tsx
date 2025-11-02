@@ -22,62 +22,37 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-2xl font-bold text-secondary">G</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">Gold Money</span>
-          </div>
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-secondary/95 backdrop-blur-md shadow-lg">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          <div className="text-2xl font-bold text-primary">SVS GOLD</div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection("home")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection("gold-rate")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Gold Rate
-            </button>
-            <button
-              onClick={() => scrollToSection("why-us")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Why Us
-            </button>
-            <button
-              onClick={() => scrollToSection("how-it-works")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection("testimonials")}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Testimonials
-            </button>
+            <a href="#about" className="text-secondary-foreground hover:text-accent transition-colors font-medium">About</a>
+            <a href="#services" className="text-secondary-foreground hover:text-accent transition-colors font-medium">Services</a>
+            <a href="#sell-gold" className="text-secondary-foreground hover:text-accent transition-colors font-medium">Sell Gold</a>
+            <a href="#release-pledge" className="text-secondary-foreground hover:text-accent transition-colors font-medium">Release Pledge</a>
+            <a href="#faq" className="text-secondary-foreground hover:text-accent transition-colors font-medium">FAQ</a>
+            <a href="#sell-gold" className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 transition-all duration-300 text-primary-foreground font-semibold shadow-[var(--shadow-gold)]">Get Started</a>
           </nav>
 
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => scrollToSection("enquiry")}
-              className="hidden md:inline-flex px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent hover:shadow-[var(--shadow-gold)] transition-all duration-300 text-secondary font-semibold"
-            >
-              Apply Now
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2">
+            {isMobileMenuOpen ? <X className="w-6 h-6 text-secondary-foreground" /> : <Menu className="w-6 h-6 text-secondary-foreground" />}
+          </button>
+        </div>
+
+        {isMobileMenuOpen && (
+          <nav className="md:hidden pb-6 space-y-4">
+            <a href="#about" className="block py-2 text-secondary-foreground hover:text-accent transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>About</a>
+            <a href="#services" className="block py-2 text-secondary-foreground hover:text-accent transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
+            <a href="#sell-gold" className="block py-2 text-secondary-foreground hover:text-accent transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Sell Gold</a>
+            <a href="#release-pledge" className="block py-2 text-secondary-foreground hover:text-accent transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Release Pledge</a>
+            <a href="#faq" className="block py-2 text-secondary-foreground hover:text-accent transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>FAQ</a>
+            <a href="#sell-gold" className="block w-full text-center px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 transition-all duration-300 text-primary-foreground font-semibold" onClick={() => setIsMobileMenuOpen(false)}>Get Started</a>
+          </nav>
+        )}
+      </div>
+    </header>
             </button>
 
             <button

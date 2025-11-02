@@ -1,10 +1,11 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import GoldRateSection from "@/components/GoldRateSection";
-import EnquiryForm from "@/components/EnquiryForm";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import HowItWorks from "@/components/HowItWorks";
-import Testimonials from "@/components/Testimonials";
+import AboutUs from "@/components/AboutUs";
+import Services from "@/components/Services";
+import SellGoldForm from "@/components/SellGoldForm";
+import ReleasePledgeForm from "@/components/ReleasePledgeForm";
+import FAQ from "@/components/FAQ";
+import AdminGoldRate from "@/components/AdminGoldRate";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -13,11 +14,12 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <GoldRateSection />
-        <EnquiryForm />
-        <WhyChooseUs />
-        <HowItWorks />
-        <Testimonials />
+        <AboutUs />
+        <Services />
+        <SellGoldForm />
+        <ReleasePledgeForm />
+        <FAQ />
+        <AdminGoldRate />
       </main>
       <Footer />
     </div>

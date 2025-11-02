@@ -4,23 +4,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-secondary text-white relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-2xl font-bold text-secondary">G</span>
-              </div>
-              <span className="text-2xl font-bold">Gold Money</span>
-            </div>
-            <p className="text-white/80 leading-relaxed">
-              Largest organized gold buyer with 100+ branches. Get instant cash for your gold with transparent pricing and German technology.
-            </p>
+    <footer className="bg-secondary text-secondary-foreground py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 className="text-2xl font-bold mb-4 text-accent">SVS GOLD</h3>
+            <p className="text-secondary-foreground/80 text-sm">Your trusted partner for instant gold transactions and pledge release services across 100+ branches.</p>
           </div>
 
           {/* Quick Links */}
