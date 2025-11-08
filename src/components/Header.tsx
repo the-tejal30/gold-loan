@@ -53,60 +53,6 @@ const Header = () => {
         )}
       </div>
     </header>
-            </button>
-
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-foreground"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 space-y-3 animate-fade-in">
-            <button
-              onClick={() => scrollToSection("home")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection("gold-rate")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Gold Rate
-            </button>
-            <button
-              onClick={() => scrollToSection("why-us")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Why Us
-            </button>
-            <button
-              onClick={() => scrollToSection("how-it-works")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors font-medium"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection("testimonials")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Testimonials
-            </button>
-            <button
-              onClick={() => scrollToSection("enquiry")}
-              className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-secondary font-semibold transition-all duration-300 hover:shadow-[var(--shadow-gold)]"
-            >
-              Apply Now
-            </button>
-          </nav>
-        )}
-      </div>
-    </header>
   );
 };
 
