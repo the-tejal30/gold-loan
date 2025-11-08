@@ -50,6 +50,96 @@ export type Database = {
         }
         Relationships: []
       }
+      hourly_gold_rates: {
+        Row: {
+          created_at: string
+          hour: number
+          id: string
+          rate_18k: number
+          rate_22k: number
+          rate_24k: number
+          rate_date: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          hour: number
+          id?: string
+          rate_18k: number
+          rate_22k: number
+          rate_24k: number
+          rate_date?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          hour?: number
+          id?: string
+          rate_18k?: number
+          rate_22k?: number
+          rate_24k?: number
+          rate_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      live_rate_views: {
+        Row: {
+          id: string
+          mobile_number: string
+          rate_18k: number | null
+          rate_22k: number | null
+          rate_24k: number | null
+          viewed_at: string
+        }
+        Insert: {
+          id?: string
+          mobile_number: string
+          rate_18k?: number | null
+          rate_22k?: number | null
+          rate_24k?: number | null
+          viewed_at?: string
+        }
+        Update: {
+          id?: string
+          mobile_number?: string
+          rate_18k?: number | null
+          rate_22k?: number | null
+          rate_24k?: number | null
+          viewed_at?: string
+        }
+        Relationships: []
+      }
+      otp_verifications: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          mobile_number: string
+          otp: string
+          purpose: string
+          verified: boolean
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          mobile_number: string
+          otp: string
+          purpose: string
+          verified?: boolean
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          mobile_number?: string
+          otp?: string
+          purpose?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
       release_pledge_forms: {
         Row: {
           consent_given: boolean

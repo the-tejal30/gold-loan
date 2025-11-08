@@ -2,10 +2,12 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutUs from "@/components/AboutUs";
 import Services from "@/components/Services";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import HowItWorks from "@/components/HowItWorks";
 import SellGoldForm from "@/components/SellGoldForm";
 import ReleasePledgeForm from "@/components/ReleasePledgeForm";
+import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
-import AdminGoldRate from "@/components/AdminGoldRate";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -16,10 +18,12 @@ const Index = () => {
         <HeroSection />
         <AboutUs />
         <Services />
+        <WhyChooseUs />
+        <HowItWorks />
         <SellGoldForm />
         <ReleasePledgeForm />
+        <Testimonials />
         <FAQ />
-        <AdminGoldRate />
       </main>
       <Footer />
     </div>

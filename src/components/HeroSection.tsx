@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-gold.jpg";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import LiveGoldRate from "./LiveGoldRate";
 
 const HeroSection = () => {
+  const [showLiveRate, setShowLiveRate] = useState(false);
+
   const scrollToEnquiry = () => {
     const element = document.getElementById("enquiry");
     if (element) {
@@ -52,12 +57,17 @@ const HeroSection = () => {
               Get Enquiry
               <Sparkles className="ml-2 w-5 h-5 inline-block group-hover:rotate-12 transition-transform" />
             </button>
-            <button
-              onClick={() => document.getElementById("gold-rate")?.scrollIntoView({ behavior: "smooth" })}
-              className="border-2 border-primary/50 bg-white/10 backdrop-blur-sm text-white hover:bg-primary/20 hover:border-primary text-lg px-8 py-6 rounded-xl transition-all duration-300"
-            >
-              Check Gold Rate
-            </button>
+            
+            <Dialog open={showLiveRate} onOpenChange={setShowLiveRate}>
+              <DialogTrigger asChild>
+                <button className="border-2 border-primary/50 bg-white/10 backdrop-blur-sm text-white hover:bg-primary/20 hover:border-primary text-lg px-8 py-6 rounded-xl transition-all duration-300">
+                  View Live Gold Rate
+                </button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+                <LiveGoldRate />
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 max-w-3xl mx-auto">
