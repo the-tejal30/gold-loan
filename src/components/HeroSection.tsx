@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-gold.jpg";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import LiveGoldRate from "./LiveGoldRate";
+import { SparklesIcon } from "@/icons/SparklesIcon";
+import { WaveDivider } from "@/icons/WaveDivider";
+import "./HeroSection.css";
 
 const HeroSection = () => {
-  const [showLiveRate, setShowLiveRate] = useState(false);
+  const navigate = useNavigate();
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [otp, setOtp] = useState("");
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const scrollToEnquiry = () => {
     const element = document.getElementById("enquiry");
@@ -14,95 +19,235 @@ const HeroSection = () => {
     }
   };
 
+  const handleSendOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (mobileNumber.length === 10) {
+      setIsLoading(true);
+      // Simulate OTP sending
+      setTimeout(() => {
+        setShowOtpInput(true);
+        setIsLoading(false);
+      }, 1000);
+    }
+  };
+
+  const handleVerifyOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (otp.length === 6) {
+      setIsLoading(true);
+      // Simulate OTP verification
+      setTimeout(() => {
+        navigate("/gold-rates");
+        setIsLoading(false);
+      }, 1000);
+    }
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-secondary via-secondary/95 to-background pt-20">
+    <section className="hero-section py-20 md:px-6">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
+      <div className="hero-background">
         <img
           src={heroImage}
           alt="Gold Loan"
-          className="w-full h-full object-cover opacity-20"
+          className="hero-background-image"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/60 to-secondary/90" />
+        <div className="hero-background-overlay" />
       </div>
 
       {/* Floating Gold Circles */}
-      <div className="absolute top-20 right-20 w-32 h-32 rounded-full bg-primary/10 blur-3xl animate-float" />
-      <div className="absolute bottom-40 left-20 w-40 h-40 rounded-full bg-accent/10 blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+      <div className="floating-circle floating-circle-1" />
+      <div className="floating-circle floating-circle-2" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
-          <div className="inline-flex items-center space-x-2 bg-primary/10 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Trusted by 50,000+ Customers</span>
-          </div>
+        <div className="hero-grid">
 
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-            Turning Your Gold Into
-            <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-glow">
-              Instant Money
-            </span>
-          </h1>
+          {/* Left Section - Main Content */}
+          <div className="hero-content">
+            <div className="hero-badge">
+              <SparklesIcon className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium text-primary">New & Innovative Gold Loan Service</span>
+            </div>
 
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Get instant cash against your gold with transparent pricing. 
-            Trusted by 50,000+ customers across India.
-          </p>
+            <h1 className="hero-title">
+              <span className="hero-title-line hero-title-transform">Transform Your</span>
+              <span className="hero-title-gradient">Gold into Cash</span>
+              <span className="hero-title-instant">Instantly</span>
+            </h1>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <button
-              onClick={scrollToEnquiry}
-              className="bg-gradient-to-r from-primary to-accent hover:shadow-[var(--shadow-gold)] transition-all duration-300 text-secondary font-semibold text-lg px-8 py-6 rounded-xl group"
-            >
-              Get Enquiry
-              <Sparkles className="ml-2 w-5 h-5 inline-block group-hover:rotate-12 transition-transform" />
-            </button>
-            
-            <Dialog open={showLiveRate} onOpenChange={setShowLiveRate}>
-              <DialogTrigger asChild>
-                <button className="border-2 border-primary/50 bg-white/10 backdrop-blur-sm text-white hover:bg-primary/20 hover:border-primary text-lg px-8 py-6 rounded-xl transition-all duration-300">
-                  View Live Gold Rate
-                </button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-                <LiveGoldRate />
-              </DialogContent>
-            </Dialog>
-          </div>
+            <p className="hero-description">
+              Get instant cash against your gold with transparent pricing.
+              Fast approval and secure process.
+            </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 max-w-3xl mx-auto">
-            {[
-              { label: "Process Time", value: "15 Minutes" },
-              { label: "Interest Rate", value: "From 0.5%" },
-              { label: "Branches", value: "100+" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
-                style={{ animationDelay: `${index * 0.1}s` }}
+            <div className="hero-cta">
+              <button
+                onClick={scrollToEnquiry}
+                className="hero-button-primary"
               >
-                <div className="text-3xl font-bold text-primary">{stat.value}</div>
-                <div className="text-white/80 mt-1">{stat.label}</div>
-              </div>
-            ))}
+                Get Enquiry
+                <SparklesIcon className="hero-button-icon" />
+              </button>
+            </div>
+
+            <div className="hero-stats">
+              {[
+                { label: "Process Time", value: "15 Minutes" },
+                { label: "Interest Rate", value: "From 0.5%" },
+                { label: "Locations", value: "Pan India" },
+              ].map((stat, index) => (
+                <div
+                  key={index}
+                  className="hero-stat-card"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="hero-stat-value">{stat.value}</div>
+                  <div className="hero-stat-label">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Right Section - Gold Rate Card */}
+          <div className="hero-rate-section">
+            <div className="hero-rate-container">
+              {/* Decorative Elements */}
+              <div className="decorative-coin decorative-coin-1">
+                <SparklesIcon className="w-6 h-6 text-primary" />
+              </div>
+              <div className="decorative-coin decorative-coin-2">
+                <SparklesIcon className="w-5 h-5 text-accent" />
+              </div>
+              <div className="decorative-coin decorative-coin-3">
+                <SparklesIcon className="w-4 h-4 text-primary" />
+              </div>
+
+              {/* Glow Effect */}
+              <div className="glow-effect"></div>
+
+              {/* Main Card */}
+              <div className="hero-rate-card">
+                <div className="hero-rate-content">
+                  {/* Animated Gold Icon */}
+                  <div className="hero-rate-icon">
+                    <div className="gold-shimmer"></div>
+                    <SparklesIcon className="w-10 h-10 text-white relative z-10" />
+                  </div>
+
+                  <h3 className="hero-rate-title">
+                    Check Live Gold Rate Today
+                  </h3>
+
+                  <p className="hero-rate-subtitle">
+                    {!showOtpInput
+                      ? "Enter your mobile number to get started"
+                      : "Enter the OTP sent to your mobile"}
+                  </p>
+
+                  {!showOtpInput ? (
+                    <form onSubmit={handleSendOtp} className="hero-rate-form">
+                      <input
+                        type="tel"
+                        placeholder="Enter mobile number"
+                        value={mobileNumber}
+                        onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        className="hero-rate-input"
+                        maxLength={10}
+                        required
+                      />
+                      <button
+                        type="submit"
+                        disabled={mobileNumber.length !== 10 || isLoading}
+                        className="hero-rate-submit"
+                      >
+                        {isLoading ? (
+                          <span className="flex items-center justify-center">
+                            <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Sending OTP...
+                          </span>
+                        ) : (
+                          <span className="relative z-10 flex items-center justify-center">
+                            Send OTP
+                            <svg className="ml-2 w-5 h-5 hero-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </span>
+                        )}
+                        <div className="hero-button-overlay" />
+                      </button>
+                    </form>
+                  ) : (
+                    <form onSubmit={handleVerifyOtp} className="hero-rate-form">
+                      <input
+                        type="tel"
+                        placeholder="Enter 6-digit OTP"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                        className="hero-rate-input"
+                        maxLength={6}
+                        required
+                        autoFocus
+                      />
+                      <button
+                        type="submit"
+                        disabled={otp.length !== 6 || isLoading}
+                        className="hero-rate-submit"
+                      >
+                        {isLoading ? (
+                          <span className="flex items-center justify-center">
+                            <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Verifying...
+                          </span>
+                        ) : (
+                          <span className="relative z-10 flex items-center justify-center">
+                            Verify & View Rates
+                            <svg className="ml-2 w-5 h-5 hero-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </span>
+                        )}
+                        <div className="hero-button-overlay" />
+                      </button>
+                      <div className="flex items-center justify-between gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setShowOtpInput(false);
+                            setOtp("");
+                            setMobileNumber("");
+                          }}
+                          className="hero-rate-back"
+                        >
+                          ← Change Number
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleSendOtp}
+                          disabled={isLoading}
+                          className="hero-resend-otp"
+                        >
+                          Resend OTP
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       {/* Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto block"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="hsl(var(--background))"
-          />
-        </svg>
+      <div className="hero-wave">
+        <WaveDivider />
       </div>
     </section>
   );
