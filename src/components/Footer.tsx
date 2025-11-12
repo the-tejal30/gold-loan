@@ -1,7 +1,7 @@
 import { IconMapPin } from "@/icons/IconMapPin";
 import { SocialIcons } from "./SocialIcons";
 
-export const Footer = () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const navItems = [
@@ -120,3 +120,5 @@ export const Footer = () => {
     </footer>
   );
 };
+
+export default Footer;
