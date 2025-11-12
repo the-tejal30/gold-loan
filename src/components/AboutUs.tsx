@@ -1,6 +1,54 @@
-import { Award, Shield, Users, TrendingUp } from "lucide-react";
+import { InstantPaymentIcon } from "@/icons/InstantPaymentIcon";
+import { LoanClearanceIcon } from "@/icons/LoanClearanceIcon";
+import { ShieldIcon } from "@/icons/SheildIcon";
+import { TransparentProcessIcon } from "@/icons/TransparentProcessIcon";
+import { TrendingUpIcon } from "@/icons/TrendingUpIcon";
+import { TrustedServiceIcon } from "@/icons/TrustedServiceIcon";
+import { UsersIcon } from "@/icons/UsersIcon";
 
 const AboutUs = () => {
+
+  const features = [
+    {
+      Icon: InstantPaymentIcon,
+      title: 'Instant',
+      subtitle: 'Payment'
+    },
+    {
+      Icon: LoanClearanceIcon,
+      title: 'Loan',
+      subtitle: 'Clearance'
+    },
+    {
+      Icon: TransparentProcessIcon,
+      title: 'Transparent',
+      subtitle: 'Process'
+    },
+    {
+      Icon: TrustedServiceIcon,
+      title: 'Trusted',
+      subtitle: 'Service'
+    }
+  ];
+
+  const values = [
+    {
+      Icon: ShieldIcon,
+      title: 'Trust & Transparency',
+      description: 'Every transaction at SVS Gold is handled with honesty and clarity. We ensure a fair process so that customers always receive the right value for their gold and silver.'
+    },
+    {
+      Icon: TrendingUpIcon,
+      title: 'Fair Value',
+      description: 'We provide accurate purity testing and genuine rates based on the current market value, ensuring customers get what their gold truly deserves.'
+    },
+    {
+      Icon: UsersIcon,
+      title: 'Customer First',
+      description: 'Customer satisfaction is at the heart of everything we do. From quick evaluation to instant payment, we make every step easy, secure, and worry free.'
+    }
+  ];
+
   return (
     <section id="about" className="py-20 bg-background relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -13,7 +61,7 @@ const AboutUs = () => {
               About SVS Gold
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Your trusted partner in gold transactions with years of experience and commitment to excellence
+              Your trusted partner in gold transactions, dedicated to providing genuine value and reliable service with a strong focus on customer satisfaction.
             </p>
           </div>
 
@@ -23,52 +71,23 @@ const AboutUs = () => {
                 Who We Are
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                SVS Gold is a leading name in the gold buying and pledge release services across India. With a legacy of trust and transparency, we've helped thousands of customers turn their gold assets into instant liquidity.
+                SVS Gold is a trusted Gold and Silver buying company that offers the best value for your precious metals. Customers can visit with their gold or silver and receive instant payment after evaluation. The process is simple, transparent, and handled with complete professionalism.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Our mission is to provide fair, transparent, and instant gold transactions using cutting-edge German technology for accurate purity testing. We believe in empowering our customers with the best market rates and seamless service experience.
+                For customers who are unable to repay their existing gold loans, SVS Gold helps by paying the loan amount along with the interest directly to the bank, NBFC, or pawnbroker. Once the pledged gold is released, the remaining balance is paid to the customer, ensuring a smooth and worry free experience.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center space-x-2">
-                  <Award className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-semibold text-foreground">15+ Years Experience</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Users className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-semibold text-foreground">50,000+ Happy Customers</span>
-                </div>
-              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6 animate-scale-in">
-              <div className="bg-card p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-6 h-6 text-primary" />
+              {features.map((feature, index) => (
+                <div className="bg-card p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center" key={index}>
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <feature.Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-foreground mb-2">{feature.title}</h4>
+                  <p className="text-sm text-muted-foreground">{feature.subtitle}</p>
                 </div>
-                <h4 className="text-2xl font-bold text-foreground mb-2">100+</h4>
-                <p className="text-sm text-muted-foreground">Branches</p>
-              </div>
-              <div className="bg-card p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-2xl font-bold text-foreground mb-2">100%</h4>
-                <p className="text-sm text-muted-foreground">Secure</p>
-              </div>
-              <div className="bg-card p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-2xl font-bold text-foreground mb-2">Best</h4>
-                <p className="text-sm text-muted-foreground">Market Rates</p>
-              </div>
-              <div className="bg-card p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-2xl font-bold text-foreground mb-2">24/7</h4>
-                <p className="text-sm text-muted-foreground">Support</p>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -77,33 +96,15 @@ const AboutUs = () => {
               Our Core Values
             </h3>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-8 h-8 text-primary" />
+              {values.map((value, index) => (
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <value.Icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-foreground mb-2">{value.title}</h4>
+                  <p className="text-muted-foreground">{value.description}</p>
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">Trust & Transparency</h4>
-                <p className="text-muted-foreground">
-                  We believe in complete transparency in all our transactions, ensuring you get fair value for your gold.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-8 h-8 text-primary" />
-                </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">Best Rates</h4>
-                <p className="text-muted-foreground">
-                  We offer the most competitive rates in the market, guaranteed to give you the best return on your gold.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-primary" />
-                </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">Customer First</h4>
-                <p className="text-muted-foreground">
-                  Your satisfaction is our priority. We strive to provide exceptional service at every touchpoint.
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </div>

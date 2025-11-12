@@ -1,6 +1,45 @@
-import { Coins, Lock, Zap, Shield, TrendingUp, Clock } from "lucide-react";
+import { IconCoins } from "@/icons/IconCoins";
+import { IconIdCard } from "@/icons/IconIdCard";
+import { IconLock } from "@/icons/IconLock";
+import { InstantPaymentIcon } from "@/icons/InstantPaymentIcon";
+import { ShieldIcon } from "@/icons/SheildIcon";
 
 const Services = () => {
+  const processSteps = [
+    {
+      icon: <IconIdCard className="w-7 h-7 text-primary" />,
+      title: "Documents Required",
+      description:
+        "Customers must carry their original Aadhar card and be at least 21 years old to sell gold to us.",
+    },
+    {
+      icon: <ShieldIcon className="w-7 h-7 text-primary" />,
+      title: "Purity Check",
+      description:
+        "We use advanced XRF technology to test the purity of gold without causing any damage.",
+    },
+    {
+      icon: <InstantPaymentIcon className="w-7 h-7 text-primary" />,
+      title: "Instant Payment",
+      description:
+        "Once the purity is confirmed, customers receive instant cash on the spot.",
+    },
+  ];
+
+  const sellGoldFeatures = [
+    "Instant cash on the spot",
+    "Transparent and safe process",
+    "Best market value",
+    "No hidden charges",
+  ];
+
+  const releasePledgedFeatures = [
+    "Support for any financier",
+    "Quick loan clearance",
+    "Simple and clear process",
+    "Immediate balance payout",
+  ];
+
   return (
     <section id="services" className="py-20 bg-muted relative overflow-hidden">
       <div className="absolute top-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
@@ -8,46 +47,46 @@ const Services = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
+          {/* Heading */}
           <div className="text-center space-y-4 mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
               Our Services
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive gold solutions tailored to meet your financial needs
+              SVS Gold buys Gold and Silver from customers at the best market
+              value. We also help release pledged gold by paying the loan amount
+              and interest to the respective bank, NBFC, or pawnbroker, and
+              return the remaining balance to the customer.
             </p>
           </div>
 
+          {/* Services Section */}
           <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {/* Sell Gold Service */}
-            <div className="bg-card rounded-3xl p-8 md:p-10 shadow-[var(--shadow-card)] border border-border backdrop-blur-sm animate-scale-in group hover:shadow-[var(--shadow-gold)] transition-all duration-300">
+            {/* Sell Gold */}
+            <div className="bg-card rounded-3xl p-8 md:p-10 shadow-[var(--shadow-card)] border border-border backdrop-blur-sm group hover:shadow-[var(--shadow-gold)] transition-all duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Coins className="w-8 h-8 text-primary-foreground" />
+                <IconCoins className="w-8 h-8 text-primary-foreground" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                 Sell Your Gold
               </h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Get instant cash for your gold jewelry, coins, or bars. We offer the best market rates with transparent evaluation using German technology for accurate purity testing.
+                Walk in with your gold and get instant cash. We offer fair and
+                transparent rates based on real time market value with accurate
+                purity testing.
               </p>
               <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">No waiting period - instant payment</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">Best market rates guaranteed</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">German technology for purity check</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">Safe and secure process</span>
-                </div>
+                {sellGoldFeatures.map((point, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 text-sm text-foreground"
+                  >
+                    <div className="w-2 h-2 bg-primary rounded-full" />
+                    <span>{point}</span>
+                  </div>
+                ))}
               </div>
-              <a 
+              <a
                 href="#sell-gold"
                 className="mt-6 inline-block px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-semibold transition-all"
               >
@@ -55,86 +94,36 @@ const Services = () => {
               </a>
             </div>
 
-            {/* Release Pledge Service */}
-            <div className="bg-card rounded-3xl p-8 md:p-10 shadow-[var(--shadow-card)] border border-border backdrop-blur-sm animate-scale-in group hover:shadow-[var(--shadow-gold)] transition-all duration-300">
+            {/* Release Pledged Gold */}
+            <div className="bg-card rounded-3xl p-8 md:p-10 shadow-[var(--shadow-card)] border border-border backdrop-blur-sm group hover:shadow-[var(--shadow-gold)] transition-all duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Lock className="w-8 h-8 text-primary-foreground" />
+                <IconLock className="w-8 h-8 text-primary-foreground" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                Release Pledge Gold
+                Release Pledged Gold
               </h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Release your pledged gold from any financier instantly. We handle all the paperwork and process, ensuring a hassle-free experience with immediate gold release.
+                If your gold is pledged, we help by paying the loan and interest
+                directly to the bank, NBFC, or pawnbroker. Once released, the
+                remaining amount is paid to you.
               </p>
               <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">Works with any financier</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">Quick loan clearance</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">Minimal documentation required</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-sm text-foreground">Same-day gold release</span>
-                </div>
+                {releasePledgedFeatures.map((point, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 text-sm text-foreground"
+                  >
+                    <div className="w-2 h-2 bg-primary rounded-full" />
+                    <span>{point}</span>
+                  </div>
+                ))}
               </div>
-              <a 
+              <a
                 href="#release-pledge"
                 className="mt-6 inline-block px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-semibold transition-all"
               >
                 Release Gold Now
               </a>
-            </div>
-          </div>
-
-          {/* Why Choose Our Services */}
-          <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 rounded-3xl p-8 md:p-12 border border-primary/20 animate-fade-in">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-              Why Choose SVS Gold Services
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-4">
-                  <Zap className="w-7 h-7 text-primary" />
-                </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">Instant Process</h4>
-                <p className="text-sm text-muted-foreground">
-                  Complete your transaction within minutes with our streamlined process.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-4">
-                  <Shield className="w-7 h-7 text-primary" />
-                </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">Secure & Safe</h4>
-                <p className="text-sm text-muted-foreground">
-                  Bank-grade security measures to protect your valuable assets.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-4">
-                  <TrendingUp className="w-7 h-7 text-primary" />
-                </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">Best Rates</h4>
-                <p className="text-sm text-muted-foreground">
-                  Competitive market rates updated daily to ensure maximum value.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center md:col-span-3">
-                <div className="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center mb-4">
-                  <Clock className="w-7 h-7 text-primary" />
-                </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">24/7 Support</h4>
-                <p className="text-sm text-muted-foreground max-w-md">
-                  Our dedicated support team is always available to assist you with any queries or concerns.
-                </p>
-              </div>
             </div>
           </div>
         </div>
