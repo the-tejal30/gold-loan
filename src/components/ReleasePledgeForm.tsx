@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { Send } from "lucide-react";
 import { releasePledgeGoldForm } from "@/integrations/api";
+import SendButton from "@/icons/Send";
 
-const ReleasePledgeForm = () => {
+interface ReleasePledgeFormProps {
+  isEmbedded?: boolean;
+}
+
+const ReleasePledgeForm = ({ isEmbedded = false }: ReleasePledgeFormProps) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -16,9 +20,7 @@ const ReleasePledgeForm = () => {
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     if (!consent) {
       toast({
         title: "Consent Required",
@@ -120,6 +122,102 @@ const ReleasePledgeForm = () => {
     },
   ];
 
+  const FormContent = () => (
+    <div className="space-y-5">
+      <div className="grid md:grid-cols-2 gap-5">
+        {fields.slice(0, 2).map((field) => (
+          <div className="space-y-2" key={field.name}>
+            <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
+              {field.label}
+            </label>
+            <input
+              id={field.id}
+              name={field.name}
+              type={field.type}
+              value={(formData as any)[field.name]}
+              onChange={handleChange}
+              placeholder={field.placeholder}
+              required={field.required}
+              pattern={field.pattern}
+              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-5">
+        {fields.slice(2, 4).map((field) => (
+          <div className="space-y-2" key={field.name}>
+            <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
+              {field.label}
+            </label>
+            <input
+              id={field.id}
+              name={field.name}
+              type={field.type}
+              value={(formData as any)[field.name]}
+              onChange={handleChange}
+              placeholder={field.placeholder}
+              required={field.required}
+              step={field.step}
+              min={field.min}
+              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-5">
+        {fields.slice(4).map((field) => (
+          <div className="space-y-2" key={field.name}>
+            <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
+              {field.label}
+            </label>
+            <input
+              id={field.id}
+              name={field.name}
+              type={field.type}
+              value={(formData as any)[field.name]}
+              onChange={handleChange}
+              placeholder={field.placeholder}
+              required={field.required}
+              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-start space-x-3 p-4 bg-muted rounded-xl">
+        <input
+          id="release-consent"
+          type="checkbox"
+          checked={consent}
+          onChange={(e) => setConsent(e.target.checked)}
+          required
+          className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
+        />
+        <label htmlFor="release-consent" className="text-sm text-foreground leading-relaxed">
+          I authorize SVS Gold and its representatives to contact me via Call, SMS, WhatsApp, Email, RCS regarding their products and offers. This consent overrides any registration made under DND/NDNC.
+        </label>
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        disabled={isSubmitting}
+        className="w-full flex items-center justify-center gap-1 h-14 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed shadow-[var(--shadow-gold)] transition-all duration-300 text-primary-foreground font-semibold text-lg group"
+      >
+        {isSubmitting ? "Submitting..." : "Submit Enquiry"}
+        {!isSubmitting && (
+          <SendButton className="ml-2 w-4 h-4 inline-block group-hover:translate-x-1 transition-transform" />
+        )}
+      </button>
+    </div>
+  );
+
+  if (isEmbedded) {
+    return <FormContent />;
+  }
+
   return (
     <section id="release-pledge" className="py-20 bg-muted relative overflow-hidden">
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
@@ -137,53 +235,7 @@ const ReleasePledgeForm = () => {
           </div>
 
           <div className="bg-card rounded-3xl p-8 md:p-12 shadow-[var(--shadow-card)] border border-border backdrop-blur-sm animate-scale-in">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {fields.map((field) => (
-                <div className="space-y-2" key={field.name}>
-                  <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
-                    {field.label}
-                  </label>
-                  <input
-                    id={field.id}
-                    name={field.name}
-                    type={field.type}
-                    value={(formData as any)[field.name]}
-                    onChange={handleChange}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    pattern={field.pattern}
-                    step={field.step}
-                    min={field.min}
-                    className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  />
-                </div>
-              ))}
-
-              <div className="flex items-start space-x-3 p-4 bg-muted rounded-xl">
-                <input
-                  id="release-consent"
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                  required
-                  className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
-                />
-                <label htmlFor="release-consent" className="text-sm text-foreground leading-relaxed">
-                  I authorize SVS Gold and its representatives to contact me via Call, SMS, WhatsApp, Email, RCS regarding their products and offers. This consent overrides any registration made under DND/NDNC.
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed shadow-[var(--shadow-gold)] transition-all duration-300 text-primary-foreground font-semibold text-lg group"
-              >
-                {isSubmitting ? "Submitting..." : "Submit Enquiry"}
-                {!isSubmitting && (
-                  <Send className="ml-2 w-5 h-5 inline-block group-hover:translate-x-1 transition-transform" />
-                )}
-              </button>
-            </form>
+            <FormContent />
           </div>
         </div>
       </div>

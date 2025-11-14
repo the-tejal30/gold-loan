@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { useState } from "react";
 import { MenuIcon } from "@/icons/MenuIcon";
 import { XIcon } from "@/icons/XIcon";
 
@@ -10,8 +9,6 @@ const Header = () => {
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "How It Works", href: "#how-it-works" },
-    { label: "Sell Gold", href: "#sell-gold" },
-    { label: "Release Pledge", href: "#release-pledge" },
     { label: "FAQ", href: "#faq" }
   ];
 

@@ -439,7 +439,7 @@
     color: hsl(var(--secondary));
     font-weight: 600;
     font-size: 1.125rem;
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
     border-radius: 0.75rem;
     border: none;
     cursor: pointer;
