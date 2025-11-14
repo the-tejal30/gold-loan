@@ -1,30 +1,7 @@
 import { IconCoins } from "@/icons/IconCoins";
-import { IconIdCard } from "@/icons/IconIdCard";
 import { IconLock } from "@/icons/IconLock";
-import { InstantPaymentIcon } from "@/icons/InstantPaymentIcon";
-import { ShieldIcon } from "@/icons/SheildIcon";
 
 const Services = () => {
-  const processSteps = [
-    {
-      icon: <IconIdCard className="w-7 h-7 text-primary" />,
-      title: "Documents Required",
-      description:
-        "Customers must carry their original Aadhar card and be at least 21 years old to sell gold to us.",
-    },
-    {
-      icon: <ShieldIcon className="w-7 h-7 text-primary" />,
-      title: "Purity Check",
-      description:
-        "We use advanced XRF technology to test the purity of gold without causing any damage.",
-    },
-    {
-      icon: <InstantPaymentIcon className="w-7 h-7 text-primary" />,
-      title: "Instant Payment",
-      description:
-        "Once the purity is confirmed, customers receive instant cash on the spot.",
-    },
-  ];
 
   const sellGoldFeatures = [
     "Instant cash on the spot",

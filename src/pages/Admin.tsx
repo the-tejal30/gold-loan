@@ -1,7 +1,7 @@
-import AdminPortal from "@/components/AdminPortal";
+// import AdminPortal from "@/components/AdminPortal";
 
-const Admin = () => {
-  return <AdminPortal />;
-};
+// const Admin = () => {
+//   return <AdminPortal />;
+// };
 
-export default Admin;
+// export default Admin;
