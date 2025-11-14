@@ -270,8 +270,9 @@
 }
 
 .hero-stat-label {
-    color: hsl(var(--accent));
+    color: rgba(255, 255, 255, 0.6);
     margin-top: 0.25rem;
+    font-weight: 500;
 }
 
 /* Right Section - Rate Card */
@@ -397,8 +398,9 @@
 }
 
 .hero-rate-subtitle {
-    color: hsl(var(--foreground) / 0.8);
+    color: hsl(var(--accent));
     font-size: 1.125rem;
+    font-weight: 500;
 }
 
 /* Form */
@@ -514,6 +516,30 @@
 .hero-resend-otp:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.hero-change-number {
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: color 0.3s;
+    font-size: 0.875rem;
+}
+
+.hero-change-number:hover {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-resend-link {
+    color: hsl(var(--primary));
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.hero-resend-link:hover {
+    color: hsl(var(--accent));
 }
 
 /* Wave */
