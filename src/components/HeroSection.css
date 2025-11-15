@@ -208,13 +208,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    width: 100%;
-}
-
-@media (min-width: 640px) {
-    .hero-button-primary {
-        width: auto;
-    }
+    width: fit-content;
 }
 
 .hero-button-primary:hover {

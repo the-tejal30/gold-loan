@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-gold.jpg";
 import { SparklesIcon } from "@/icons/SparklesIcon";
@@ -8,55 +8,140 @@ import "./HeroSection.css";
 import { RedirectIcon } from "@/icons/RedirectIcon";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 import ChevronLeftIcon from "@/icons/ChevronLeftIcon";
+import { sendOtp, validateOtp } from "@/integrations/api";
+import { useToast } from "@/hooks/use-toast";
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+  const [resendTimer, setResendTimer] = useState(0);
+  const [canResend, setCanResend] = useState(true);
 
-  // Stats data
   const stats = [
     { label: "Process Time", value: "15 Minutes" },
     { label: "Interest Rate", value: "From 0.5%" },
     { label: "Locations", value: "Pan India" },
   ];
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (resendTimer > 0) {
+      interval = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev <= 1) {
+            setCanResend(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [resendTimer]);
+
   const scrollToEnquiry = () => {
-    const element = document.getElementById("enquiry");
+    const element = document.getElementById("services");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleSendOtp = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (mobileNumber.length === 10) {
-      setIsLoading(true);
-      // Simulate OTP sending
-      setTimeout(() => {
-        setShowOtpInput(true);
-        setIsLoading(false);
-      }, 1000);
+  const handleSendOtp = (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
     }
+
+    if (!mobileNumber || mobileNumber.length !== 10) {
+      toast({
+        title: "Invalid Mobile Number",
+        description: "Please enter a valid 10-digit mobile number",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSendingOtp(true);
+
+    sendOtp(mobileNumber)
+      .then(() => {
+        toast({
+          title: "OTP Sent",
+          description: "Please check your mobile for the OTP",
+        });
+        setShowOtpInput(true);
+        setResendTimer(120);
+        setCanResend(false);
+      })
+      .catch((error) => {
+        console.error("OTP sending error:", error);
+        toast({
+          title: "Failed to Send OTP",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setIsSendingOtp(false);
+      });
   };
 
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (otp.length === 6) {
-      setIsLoading(true);
-      // Simulate OTP verification
-      setTimeout(() => {
-        navigate("/gold-rates");
-        setIsLoading(false);
-      }, 1000);
+
+    if (!otp || otp.length < 6) {
+      toast({
+        title: "Invalid OTP",
+        description: "Please enter a valid OTP",
+        variant: "destructive",
+      });
+      return;
     }
+
+    setIsVerifyingOtp(true);
+
+    validateOtp(mobileNumber, otp)
+      .then((response) => {
+        if (response === true) {
+          toast({
+            title: "OTP Verified",
+            description: "Your mobile number has been verified successfully",
+          });
+          sessionStorage.setItem('otpVerified', 'true');
+          sessionStorage.setItem('verifiedMobile', mobileNumber);
+          navigate("/live-gold-rate");
+        } else {
+          toast({
+            title: "Invalid OTP",
+            description: "The OTP you entered is incorrect. Please try again.",
+            variant: "destructive",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("OTP validation error:", error);
+        toast({
+          title: "Invalid OTP",
+          description: "Please enter the correct OTP",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setIsVerifyingOtp(false);
+      });
   };
 
+
   return (
-    <section className="hero-section py-20 md:px-6">
-      {/* Background Image with Overlay */}
+    <section className="hero-section py-[108px] md:px-6">
       <div className="hero-background">
         <img
           src={heroImage}
@@ -163,10 +248,10 @@ const HeroSection = () => {
                       />
                       <button
                         type="submit"
-                        disabled={mobileNumber.length !== 10 || isLoading}
+                        disabled={mobileNumber.length !== 10 || isSendingOtp}
                         className="hero-rate-submit"
                       >
-                        {isLoading ? (
+                        {isSendingOtp ? (
                           <span className="flex items-center justify-center">
                             <LoadingSpinner className="h-5 w-5 mr-2" />
                             Sending OTP...
@@ -205,18 +290,22 @@ const HeroSection = () => {
                           Change number
                         </p>
                         <p
-                          onClick={handleSendOtp}
-                          className="hero-resend-link"
+                          onClick={() => {
+                            if (canResend) {
+                              handleSendOtp();
+                            }
+                          }}
+                          className={`hero-resend-link ${!canResend ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                         >
-                          Resend OTP
+                          {canResend ? 'Resend OTP' : `Resend OTP in ${resendTimer}s`}
                         </p>
                       </div>
                       <button
                         type="submit"
-                        disabled={otp.length !== 6 || isLoading}
+                        disabled={otp.length !== 6 || isVerifyingOtp}
                         className="hero-rate-submit"
                       >
-                        {isLoading ? (
+                        {isVerifyingOtp ? (
                           <span className="flex items-center justify-center">
                             <LoadingSpinner className="h-5 w-5 mr-2" />
                             Verifying...

@@ -1,13 +1,9 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { releasePledgeGoldForm } from "@/integrations/api";
+import { releasePledgeGoldForm, sendOtp, validateOtp } from "@/integrations/api";
 import SendButton from "@/icons/Send";
 
-interface ReleasePledgeFormProps {
-  isEmbedded?: boolean;
-}
-
-const ReleasePledgeForm = ({ isEmbedded = false }: ReleasePledgeFormProps) => {
+const ReleasePledgeForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -19,12 +15,119 @@ const ReleasePledgeForm = ({ isEmbedded = false }: ReleasePledgeFormProps) => {
   });
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [resendTimer, setResendTimer] = useState(0);
+  const [canResend, setCanResend] = useState(true);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (resendTimer > 0) {
+      interval = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev <= 1) {
+            setCanResend(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [resendTimer]);
+
+  const handleSendOtp = (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+
+    if (!formData.mobileNumber || formData.mobileNumber.length !== 10) {
+      toast({
+        title: "Invalid Mobile Number",
+        description: "Please enter a valid 10-digit mobile number",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSendingOtp(true);
+
+    sendOtp(formData.mobileNumber)
+      .then(() => {
+        toast({
+          title: "OTP Sent",
+          description: "Please check your mobile for the OTP",
+        });
+        setShowOtpInput(true);
+        setResendTimer(120);
+        setCanResend(false);
+      })
+      .catch((error) => {
+        console.error("OTP sending error:", error);
+        toast({
+          title: "Failed to Send OTP",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setIsSendingOtp(false);
+      });
+  };
+
+  const handleVerifyOtp = () => {
+    if (!otp || otp.length < 6) {
+      toast({
+        title: "Invalid OTP",
+        description: "Please enter a valid OTP",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsVerifyingOtp(true);
+
+    validateOtp(formData.mobileNumber, otp)
+      .then(() => {
+        toast({
+          title: "OTP Verified",
+          description: "Your mobile number has been verified successfully",
+        });
+        setOtpVerified(true);
+        setShowOtpInput(false);
+      })
+      .catch((error) => {
+        console.error("OTP validation error:", error);
+        toast({
+          title: "Invalid OTP",
+          description: "Please enter the correct OTP",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setIsVerifyingOtp(false);
+      });
+  };
 
   const handleSubmit = () => {
     if (!consent) {
       toast({
         title: "Consent Required",
         description: "Please accept the terms and conditions",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!otpVerified) {
+      toast({
+        title: "Verification Required",
+        description: "Please verify your mobile number first",
         variant: "destructive",
       });
       return;
@@ -48,6 +151,9 @@ const ReleasePledgeForm = ({ isEmbedded = false }: ReleasePledgeFormProps) => {
           location: "",
         });
         setConsent(false);
+        setOtpVerified(false);
+        setOtp("");
+        setShowOtpInput(false);
       })
       .catch((error) => {
         console.error("Submission error:", error);
@@ -63,7 +169,14 @@ const ReleasePledgeForm = ({ isEmbedded = false }: ReleasePledgeFormProps) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (name === "mobileNumber" && otpVerified) {
+      setOtpVerified(false);
+      setShowOtpInput(false);
+      setOtp("");
+    }
   };
 
   const fields = [
@@ -122,124 +235,171 @@ const ReleasePledgeForm = ({ isEmbedded = false }: ReleasePledgeFormProps) => {
     },
   ];
 
-  const FormContent = () => (
-    <div className="space-y-5">
-      <div className="grid md:grid-cols-2 gap-5">
-        {fields.slice(0, 2).map((field) => (
-          <div className="space-y-2" key={field.name}>
-            <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
-              {field.label}
-            </label>
-            <input
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              value={(formData as any)[field.name]}
-              onChange={handleChange}
-              placeholder={field.placeholder}
-              required={field.required}
-              pattern={field.pattern}
-              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-            />
-          </div>
-        ))}
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-5">
-        {fields.slice(2, 4).map((field) => (
-          <div className="space-y-2" key={field.name}>
-            <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
-              {field.label}
-            </label>
-            <input
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              value={(formData as any)[field.name]}
-              onChange={handleChange}
-              placeholder={field.placeholder}
-              required={field.required}
-              step={field.step}
-              min={field.min}
-              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-            />
-          </div>
-        ))}
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-5">
-        {fields.slice(4).map((field) => (
-          <div className="space-y-2" key={field.name}>
-            <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
-              {field.label}
-            </label>
-            <input
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              value={(formData as any)[field.name]}
-              onChange={handleChange}
-              placeholder={field.placeholder}
-              required={field.required}
-              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-            />
-          </div>
-        ))}
-      </div>
-
-      <div className="flex items-start space-x-3 p-4 bg-muted rounded-xl">
-        <input
-          id="release-consent"
-          type="checkbox"
-          checked={consent}
-          onChange={(e) => setConsent(e.target.checked)}
-          required
-          className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
-        />
-        <label htmlFor="release-consent" className="text-sm text-foreground leading-relaxed">
-          I authorize SVS Gold and its representatives to contact me via Call, SMS, WhatsApp, Email, RCS regarding their products and offers. This consent overrides any registration made under DND/NDNC.
-        </label>
-      </div>
-
-      <button
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-        className="w-full flex items-center justify-center gap-1 h-14 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed shadow-[var(--shadow-gold)] transition-all duration-300 text-primary-foreground font-semibold text-lg group"
-      >
-        {isSubmitting ? "Submitting..." : "Submit Enquiry"}
-        {!isSubmitting && (
-          <SendButton className="ml-2 w-4 h-4 inline-block group-hover:translate-x-1 transition-transform" />
-        )}
-      </button>
-    </div>
-  );
-
-  if (isEmbedded) {
-    return <FormContent />;
-  }
-
   return (
-    <section id="release-pledge" className="py-20 bg-muted relative overflow-hidden">
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center space-y-4 mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Release Pledge Gold
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Get your pledged gold released instantly with our seamless service
-            </p>
+    <>
+      <div className="space-y-5">
+        <div className="grid md:grid-cols-2 gap-5">
+          <div className="space-y-2">
+            <label htmlFor="release-name-embedded" className="block text-foreground font-medium text-sm">
+              Full Name *
+            </label>
+            <input
+              id="release-name-embedded"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter your full name"
+              required
+              className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+            />
           </div>
 
-          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-[var(--shadow-card)] border border-border backdrop-blur-sm animate-scale-in">
-            <FormContent />
+          <div className="space-y-2">
+            <label htmlFor="release-mobile-embedded" className="block text-foreground font-medium text-sm">
+              Mobile Number *
+            </label>
+            <div className="relative">
+              <input
+                id="release-mobile-embedded"
+                name="mobileNumber"
+                type="tel"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+                placeholder="Enter your mobile number"
+                required
+                pattern="[0-9]{10}"
+                disabled={otpVerified}
+                className="w-full h-12 px-4 pr-24 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+              />
+              {!otpVerified && formData.mobileNumber.length === 10 && !showOtpInput && (
+                <button
+                  onClick={handleSendOtp}
+                  disabled={isSendingOtp}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-3 h-8 rounded-lg bg-primary hover:bg-primary/90 disabled:bg-primary/50 text-primary-foreground text-xs font-semibold transition-all"
+                >
+                  {isSendingOtp ? "Sending..." : "Send OTP"}
+                </button>
+              )}
+              {otpVerified && (
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-sm font-medium">
+                  ✓ Verified
+                </span>
+              )}
+            </div>
           </div>
         </div>
+
+        {/* OTP Verification Section */}
+        {showOtpInput && !otpVerified && (
+          <div className="flex gap-5 w-full justify-between items-center">
+            <div className="space-y-2 w-3/4">
+              <label htmlFor="otp-input" className="block text-foreground font-medium text-sm">
+                Enter OTP *
+              </label>
+              <input
+                id="otp-input"
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                placeholder="Enter 6-digit OTP"
+                maxLength={6}
+                className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+              <div className="w-full flex items-center justify-end">
+                <button
+                  onClick={() => {
+                    if (canResend) {
+                      handleSendOtp();
+                    }
+                  }}
+                  disabled={isSendingOtp}
+                  className={`text-xs underline text-primary ${!canResend ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                  {canResend ? 'Resend OTP' : `Resend OTP in ${resendTimer}s`}
+                </button>
+              </div>
+            </div>
+            <div className="flex gap-3 w-1/4">
+              <button
+                onClick={handleVerifyOtp}
+                disabled={isVerifyingOtp}
+                className="flex-1 h-12 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-primary-foreground font-semibold transition-all shadow-[var(--shadow-gold)]"
+              >
+                {isVerifyingOtp ? "Verifying..." : "Verify OTP"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="grid md:grid-cols-2 gap-5">
+          {fields.slice(2, 4).map((field) => (
+            <div className="space-y-2" key={field.name}>
+              <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
+                {field.label}
+              </label>
+              <input
+                id={field.id}
+                name={field.name}
+                type={field.type}
+                value={formData[field.name as keyof typeof formData]}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+                required={field.required}
+                step={field.step}
+                min={field.min}
+                className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          {fields.slice(4).map((field) => (
+            <div className="space-y-2" key={field.name}>
+              <label htmlFor={field.id} className="block text-foreground font-medium text-sm">
+                {field.label}
+              </label>
+              <input
+                id={field.id}
+                name={field.name}
+                type={field.type}
+                value={formData[field.name as keyof typeof formData]}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+                required={field.required}
+                className="w-full h-12 px-4 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-start space-x-3 p-4 bg-muted rounded-xl">
+          <input
+            id="release-consent-embedded"
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            required
+            className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
+          />
+          <label htmlFor="release-consent-embedded" className="text-sm text-foreground leading-relaxed">
+            I authorize SVS Gold and its representatives to contact me via Call, SMS, WhatsApp, Email, RCS regarding their products and offers. This consent overrides any registration made under DND/NDNC.
+          </label>
+        </div>
+
+        <button
+          onClick={handleSubmit}
+          disabled={isSubmitting || !otpVerified}
+          className="w-full flex items-center justify-center gap-1 h-14 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed shadow-[var(--shadow-gold)] transition-all duration-300 text-primary-foreground font-semibold text-lg group"
+        >
+          {isSubmitting ? "Submitting..." : "Submit Enquiry"}
+          {!isSubmitting && (
+            <SendButton className="ml-2 w-4 h-4 inline-block group-hover:translate-x-1 transition-transform" />
+          )}
+        </button>
       </div>
-    </section>
+    </>
   );
 };
 

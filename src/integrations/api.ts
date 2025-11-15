@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axiosInstance";
 import { CONSTANTS } from "@/integrations/constants";
-import { SellGoldResponse, SellGoldPayload, ReleasePledgeGoldPayload, ReleasePledgeGoldResponse } from "@/lib/types";
+import { SellGoldResponse, SellGoldPayload, ReleasePledgeGoldPayload, ReleasePledgeGoldResponse, UpdateGoldPricePayload, UpdateGoldPriceResponse, User, UserMobile } from "@/lib/types";
 
 export const sellGoldForm = (data: SellGoldPayload): Promise<SellGoldResponse> => {
 	return new Promise((resolve, reject) => {
@@ -48,6 +48,62 @@ export const validateOtp = (mobileNumber: string, otp: string): Promise<any> => 
 	return new Promise((resolve, reject) => {
 		axiosInstance
 			.get(`${CONSTANTS.VALIDATE_OTP}${mobileNumber}/${otp}`)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				console.error("Error validating OTP:", error);
+				reject(error);
+			});
+	});
+};
+
+export const updateGoldPrice = (data: UpdateGoldPricePayload): Promise<UpdateGoldPriceResponse> => {
+	return new Promise((resolve, reject) => {
+		axiosInstance
+			.post(CONSTANTS.UPDATE_GOLD_PRICE, data)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				console.error("Error sending Sell Gold form:", error);
+				reject(error);
+			});
+	});
+};
+
+export const getAllUsers = (): Promise<User[]> => {
+	return new Promise((resolve, reject) => {
+		axiosInstance
+			.get(CONSTANTS.ALL_USER_INFO)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				console.error("Error fetching all users:", error);
+				reject(error);
+			});
+	});
+};
+
+export const getSavedNumbers = (): Promise<UserMobile[]> => {
+	return new Promise((resolve, reject) => {
+		axiosInstance
+			.get(CONSTANTS.GET_SAVED_NUMBERS)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				console.error("Error fetching saved numbers:", error);
+				reject(error);
+			});
+	});
+};
+
+export const getGoldPrices = (date: string): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		axiosInstance
+			.get(`${CONSTANTS.GET_GOLD_PRICES}?date=${date}`)
 			.then((response) => {
 				resolve(response.data);
 			})

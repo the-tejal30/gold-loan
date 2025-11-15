@@ -1,5 +1,6 @@
 import { IconMapPin } from "@/icons/IconMapPin";
 import { SocialIcons } from "./SocialIcons";
+import SVSLogo from "@/assets/svslogo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,28 +17,26 @@ const Footer = () => {
   const contactInfo = [
     {
       icon: IconMapPin,
-      content: "100+ Branches across Karnataka, Andhra Pradesh, Kerala & Telangana",
+      content: "D. No : 3-4-659/3, YMCA, STN, Narayanguda, Himayathnagar, Hyderabad - 500029, Telangana",
       type: "text"
     },
     {
       icon: SocialIcons.Phone,
-      content: "+91 98855 88220",
+      content: "+91 9885588220",
       href: "tel:+919885588220",
       type: "link"
     },
     {
       icon: SocialIcons.Mail,
-      content: "support@goldmoney.com",
-      href: "mailto:support@goldmoney.com",
+      content: "srinidhi@svsgold.com",
+      href: "mailto:srinidhi@svsgold.com",
       type: "link"
     }
   ];
 
   const socialLinks = [
-    { icon: SocialIcons.Facebook, href: "#", label: "Facebook" },
-    { icon: SocialIcons.Twitter, href: "#", label: "Twitter" },
-    { icon: SocialIcons.Instagram, href: "#", label: "Instagram" },
-    { icon: SocialIcons.Linkedin, href: "#", label: "Linkedin" }
+    { icon: SocialIcons.Facebook, href: "https://www.facebook.com/share/1ACgUok982/", label: "Facebook" },
+    { icon: SocialIcons.Instagram, href: "https://www.instagram.com/svs_gold_", label: "Instagram" },
   ];
 
   return (
@@ -45,8 +44,12 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8 pb-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4 text-accent">SVS GOLD</h3>
-            <p className="text-secondary-foreground/80 text-sm">SVS Gold is a trusted gold and silver buying company. We offer instant payment, transparent valuation, and a simple process for both direct gold selling and pledged gold release.</p>
+            <img
+              src={SVSLogo}
+              alt="SVS Gold Logo"
+              className="w-[130px] h-[60px]"
+            />
+            <p className="text-secondary-foreground/80 text-sm mt-4">SVS Gold is a trusted gold and silver buying company. We offer instant payment, transparent valuation, and a simple process for both direct gold selling and pledged gold release.</p>
           </div>
 
           {/* Quick Links */}
@@ -112,7 +115,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
             <p className="text-white/60 text-sm">
-              © {currentYear} Gold Money. All rights reserved.
+              © {currentYear} SVS Gold. All rights reserved.
             </p>
           </div>
         </div>

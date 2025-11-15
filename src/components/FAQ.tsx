@@ -98,10 +98,10 @@ const FAQ = () => {
               Still have questions? We're here to help!
             </p>
             <a
-              href="tel:+919590704444"
+              href="tel:+919885588220"
               className="inline-block px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-semibold transition-all shadow-[var(--shadow-gold)]"
             >
-              Call Us: +91 95907 04444
+              Call Us: +91 9885588220
             </a>
           </div>
         </div>

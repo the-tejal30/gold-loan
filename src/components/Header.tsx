@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MenuIcon } from "@/icons/MenuIcon";
 import { XIcon } from "@/icons/XIcon";
+import SVSLogo from "@/assets/svslogo.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,9 +15,15 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-secondary/95 backdrop-blur-md shadow-lg">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto md:px-11 md:py-3">
         <div className="flex items-center justify-between h-20">
-          <div className="text-2xl font-bold text-primary">SVS GOLD</div>
+          <div className="text-2xl font-bold text-primary">
+            <img
+              src={SVSLogo}
+              alt="SVS Gold Logo"
+              className="w-[130px] h-[60px]"
+            />
+          </div>
 
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
