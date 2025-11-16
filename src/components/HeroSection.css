@@ -26,7 +26,6 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, hsl(var(--secondary) / 0.8), hsl(var(--secondary) / 0.6), hsl(var(--secondary) / 0.9));
-    border: 1px solid transparent;
 }
 
 .floating-circle {
@@ -61,7 +60,6 @@
     align-items: center;
     max-width: 80rem;
     margin: 0 auto;
-    border: 1px solid transparent;
 }
 
 @media (min-width: 1024px) {
@@ -237,7 +235,11 @@
 
 @media (min-width: 640px) {
     .hero-stats {
-        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    }
+
+    .hero-stat-card {
+        width: fit-content;
     }
 }
 
@@ -246,10 +248,12 @@
     backdrop-filter: blur(1rem);
     border-radius: 1rem;
     padding: 1.5rem 1.1rem;
-    min-width: 175px;
+    min-width: 170px;
+    width: 100%;
     border: 1px solid hsl(var(--foreground) / 0.2);
     transition: all 0.3s;
     animation: fadeInUp 0.8s ease-out;
+
 }
 
 .hero-stat-card:hover {
@@ -536,15 +540,6 @@
     color: hsl(var(--accent));
 }
 
-/* Wave */
-.hero-wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-}
-
 /* Animations */
 @keyframes float {
 
@@ -614,4 +609,12 @@
         opacity: 1;
         transform: scale(1.1);
     }
+}
+
+.hero-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
 }

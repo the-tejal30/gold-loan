@@ -141,7 +141,7 @@ const HeroSection = () => {
 
 
   return (
-    <section className="hero-section py-[108px] md:px-6">
+    <section id="home" className="hero-section py-[108px] md:px-6">
       <div className="hero-background">
         <img
           src={heroImage}

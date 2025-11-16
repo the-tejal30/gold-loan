@@ -42,9 +42,19 @@ const HowItWorks = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center space-y-4 mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            How It Works
-          </h2>
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-primary"></div>
+            <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-widest">
+              <span className="text-foreground">HOW IT </span>
+              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent" style={{
+                backgroundSize: '200% auto',
+                animation: 'shimmer 3s ease-in-out infinite'
+              }}>
+                WORKS
+              </span>
+            </h2>
+            <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-accent"></div>
+          </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Simple process to sell your gold and get instant payment
           </p>

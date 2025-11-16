@@ -66,13 +66,15 @@ const AdminPortal = () => {
 		setIsSubmitting(true);
 		updateGoldPrice({ gold_price: parseFloat(goldRate) })
 			.then((response) => {
-				toast({
-					title: "Rate Updated! 🎉",
-					description: `Gold rate set to ₹${goldRate}/gram`,
-				});
-				setGoldRate("");
+				if (response.id) {
+					toast({
+						title: "Rate Updated! 🎉",
+						description: `Gold rate set to ₹${goldRate}/gram`,
+					});
+					setGoldRate("");
+				}
 			})
-			.catch((error) => {
+			.catch(() => {
 				toast({
 					title: "Update Failed",
 					description: "Could not update gold rate. Please try again.",
@@ -129,6 +131,7 @@ const AdminPortal = () => {
 					'Location': user.location,
 					'Bank': user.bank,
 					'Loan Amount': user.loanAmount,
+					'Enquiry Type': user.type,
 					'Registration Date': formatDateToIST(user.createdAt),
 				}));
 

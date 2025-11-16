@@ -47,9 +47,19 @@ const FAQ = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Frequently Asked Questions
-            </h2>
+            <div className="flex items-center justify-center gap-4 md:overflow-visible">
+              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-primary flex-shrink-0"></div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-widest md:whitespace-nowrap">
+                <span className="text-foreground">FREQUENTLY ASKED </span>
+                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent" style={{
+                  backgroundSize: '200% auto',
+                  animation: 'shimmer 3s ease-in-out infinite'
+                }}>
+                  QUESTIONS
+                </span>
+              </h2>
+              <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-accent flex-shrink-0"></div>
+            </div>
             <p className="text-lg text-muted-foreground">
               Find answers to common questions about our services
             </p>

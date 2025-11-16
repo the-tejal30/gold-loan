@@ -30,9 +30,19 @@ const Services = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Our Services
-            </h2>
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-primary"></div>
+              <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-widest">
+                <span className="text-foreground">OUR </span>
+                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent" style={{
+                  backgroundSize: '200% auto',
+                  animation: 'shimmer 3s ease-in-out infinite'
+                }}>
+                  SERVICES
+                </span>
+              </h2>
+              <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-accent"></div>
+            </div>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               SVS Gold buys Gold and Silver from customers at the best market
               value. We also help release pledged gold with transparent processes.
@@ -44,8 +54,8 @@ const Services = () => {
               <button
                 onClick={() => setActiveTab("sell")}
                 className={`flex items-center space-x-3 px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${activeTab === "sell"
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 <IconCoins className="w-5 h-5" />
@@ -54,8 +64,8 @@ const Services = () => {
               <button
                 onClick={() => setActiveTab("release")}
                 className={`flex items-center space-x-3 px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${activeTab === "release"
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 <IconLock className="w-5 h-5" />

@@ -48,6 +48,7 @@ export interface User {
     bank: string;
     loanAmount: number
     createdAt: string;
+    type: string;
 }
 
 export interface UserMobile {
