@@ -70,7 +70,7 @@ const AdminPortal = () => {
 				if (response.data) {
 					toast({
 						title: "Rate Updated! 🎉",
-						description: `Gold rate set to ₹${goldRate}/gram & Gold rate set to ₹${silverRate}`,
+						description: `Gold rate set to ₹${goldRate}/gram & Silver rate set to ₹${silverRate}`,
 					});
 					setGoldRate("");
 					setSilverRate("");
@@ -385,6 +385,7 @@ const AdminPortal = () => {
 									setGoldRate("");
 									setActiveSection("rate");
 									setIsMobileMenuOpen(false);
+									window.location.href = "/";
 								}}
 								className="w-full p-3 rounded-xl bg-slate-950/50 border border-slate-800 hover:border-red-500/50 hover:bg-red-500/10 transition-all text-slate-300 hover:text-red-400 group"
 							>

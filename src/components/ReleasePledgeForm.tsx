@@ -10,7 +10,7 @@ const ReleasePledgeForm = () => {
     mobileNumber: "",
     gold_weight: "",
     loanAmount: 0,
-    bank: "",
+    bankName: "",
     location: "",
   });
   const [consent, setConsent] = useState(false);
@@ -124,14 +124,14 @@ const ReleasePledgeForm = () => {
       return;
     }
 
-    // if (!otpVerified) {
-    //   toast({
-    //     title: "Verification Required",
-    //     description: "Please verify your mobile number first",
-    //     variant: "destructive",
-    //   });
-    //   return;
-    // }
+    if (!otpVerified) {
+      toast({
+        title: "Verification Required",
+        description: "Please verify your mobile number first",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -148,7 +148,7 @@ const ReleasePledgeForm = () => {
         mobileNumber: "",
         gold_weight: "",
         loanAmount: 0,
-        bank: "",
+        bankName: "",
         location: "",
       });
       setConsent(false);
@@ -171,12 +171,18 @@ const ReleasePledgeForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
 
-    if (name === "mobileNumber" && otpVerified) {
-      setOtpVerified(false);
-      setShowOtpInput(false);
-      setOtp("");
+    if (name === "mobileNumber") {
+      const numericValue = value.replace(/\D/g, "").slice(0, 10);
+      setFormData({ ...formData, [name]: numericValue });
+
+      if (otpVerified) {
+        setOtpVerified(false);
+        setShowOtpInput(false);
+        setOtp("");
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
   };
 
@@ -221,7 +227,7 @@ const ReleasePledgeForm = () => {
     {
       id: "release-financier",
       label: "Financier Name *",
-      name: "bank",
+      name: "bankName",
       type: "text",
       placeholder: "Enter financier name",
       required: true,
@@ -380,6 +386,8 @@ const ReleasePledgeForm = () => {
             id="release-consent-embedded"
             type="checkbox"
             checked={consent}
+            pattern="[0-9]{10}"
+            maxLength={10}
             onChange={(e) => setConsent(e.target.checked)}
             required
             className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"

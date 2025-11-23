@@ -43,15 +43,15 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/live-gold-rate" element={<LiveGoldRate />} />
-            {/* <Route
+            {/* <Route path="/live-gold-rate" element={<LiveGoldRate />} /> */}
+            <Route
               path="/live-gold-rate"
               element={
                 <ProtectedRoute>
                   <LiveGoldRate />
                 </ProtectedRoute>
               }
-            /> */}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

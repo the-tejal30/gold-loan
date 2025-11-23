@@ -18,7 +18,7 @@ export interface ReleasePledgeGoldPayload {
     mobileNumber: string;
     gold_weight: string;
     location: string;
-    bank: string;
+    bankName: string;
     loanAmount: number;
 }
 

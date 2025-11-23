@@ -174,12 +174,18 @@ const SellGoldForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
 
-    if (name === "mobileNumber" && otpVerified) {
-      setOtpVerified(false);
-      setShowOtpInput(false);
-      setOtp("");
+    if (name === "mobileNumber") {
+      const numericValue = value.replace(/\D/g, "").slice(0, 10);
+      setFormData({ ...formData, [name]: numericValue });
+
+      if (otpVerified) {
+        setOtpVerified(false);
+        setShowOtpInput(false);
+        setOtp("");
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
   };
 
