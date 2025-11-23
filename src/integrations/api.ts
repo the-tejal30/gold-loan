@@ -7,6 +7,9 @@ export const sellGoldForm = (data: SellGoldPayload): Promise<SellGoldResponse> =
 		axiosInstance
 			.post(CONSTANTS.SELL_GOLD_FORM, data)
 			.then((response) => {
+				sendToGoogleSheets(data, 'sell').catch(err =>
+					console.error('Google Sheets backup failed:', err)
+				);
 				resolve(response.data);
 			})
 			.catch((error) => {
@@ -21,6 +24,9 @@ export const releasePledgeGoldForm = (data: ReleasePledgeGoldPayload): Promise<R
 		axiosInstance
 			.post(CONSTANTS.RELEASE_PLEDGE_GOLD, data)
 			.then((response) => {
+				sendToGoogleSheets(data, 'sell').catch(err =>
+					console.error('Google Sheets backup failed:', err)
+				);
 				resolve(response.data);
 			})
 			.catch((error) => {
@@ -100,10 +106,10 @@ export const getSavedNumbers = (): Promise<UserMobile[]> => {
 	});
 };
 
-export const getGoldPrices = (date: string): Promise<any> => {
+export const getMetalPrices = (isGold: boolean): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		axiosInstance
-			.get(`${CONSTANTS.GET_GOLD_PRICES}?date=${date}`)
+			.get(`${CONSTANTS.GET_GOLD_PRICES}?isGold=${isGold}`)
 			.then((response) => {
 				resolve(response.data);
 			})
@@ -112,4 +118,32 @@ export const getGoldPrices = (date: string): Promise<any> => {
 				reject(error);
 			});
 	});
+};
+
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+
+const sendToGoogleSheets = async (data: any, formType: string): Promise<void> => {
+	try {
+		if (!GOOGLE_SCRIPT_URL) {
+			console.warn('Google Script URL not configured');
+			return;
+		}
+
+		await fetch(GOOGLE_SCRIPT_URL, {
+			method: 'POST',
+			mode: 'no-cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				formType,
+				...data,
+			}),
+		});
+
+		console.log(`${formType} form data sent to Google Sheets`);
+	} catch (error) {
+		console.error(`Error sending ${formType} form to Google Sheets:`, error);
+		// Don't throw error - let the main API call succeed even if Google Sheets fails
+	}
 };

@@ -25,8 +25,8 @@ const HeroSection = () => {
   const [canResend, setCanResend] = useState(true);
 
   const stats = [
-    { label: "Process Time", value: "15 Minutes" },
-    { label: "Interest Rate", value: "From 0.5%" },
+    { label: "Process Time", value: "<30 Minutes" },
+    { label: "Purity Test", value: "XRF Technology" },
     { label: "Locations", value: "Pan India" },
   ];
 
@@ -160,15 +160,11 @@ const HeroSection = () => {
 
           {/* Left Section - Main Content */}
           <div className="hero-content">
-            <div className="hero-badge">
-              <SparklesIcon className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">New & Innovative Gold Loan Service</span>
-            </div>
 
             <h1 className="hero-title">
-              <span className="hero-title-line hero-title-transform">Transform Your</span>
-              <span className="hero-title-gradient">Gold into Cash</span>
-              <span className="hero-title-instant">Instantly</span>
+              <span className="hero-title-line hero-title-transform">More Than Gold Buyers</span>
+              <span className="hero-title-gradient">We're the People</span>
+              <span className="hero-title-instant">Who Stand With You.</span>
             </h1>
 
             <p className="hero-description">
@@ -226,7 +222,7 @@ const HeroSection = () => {
                   </div>
 
                   <h3 className="hero-rate-title">
-                    Check Live Gold Rate Today
+                    Check Live Gold Rate
                   </h3>
 
                   <p className="hero-rate-subtitle">

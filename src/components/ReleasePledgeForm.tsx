@@ -9,8 +9,8 @@ const ReleasePledgeForm = () => {
     name: "",
     mobileNumber: "",
     gold_weight: "",
-    loanAmount: "",
-    bankName: "",
+    loanAmount: 0,
+    bank: "",
     location: "",
   });
   const [consent, setConsent] = useState(false);
@@ -124,37 +124,38 @@ const ReleasePledgeForm = () => {
       return;
     }
 
-    if (!otpVerified) {
-      toast({
-        title: "Verification Required",
-        description: "Please verify your mobile number first",
-        variant: "destructive",
-      });
-      return;
-    }
+    // if (!otpVerified) {
+    //   toast({
+    //     title: "Verification Required",
+    //     description: "Please verify your mobile number first",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
     setIsSubmitting(true);
 
-    releasePledgeGoldForm(formData)
-      .then(() => {
-        toast({
-          title: "Form Submitted Successfully!",
-          description: "Our team will contact you shortly.",
-        });
+    releasePledgeGoldForm({
+      ...formData,
+    }).then(() => {
+      toast({
+        title: "Form Submitted Successfully!",
+        description: "Our team will contact you shortly.",
+      });
 
-        setFormData({
-          name: "",
-          mobileNumber: "",
-          gold_weight: "",
-          loanAmount: "",
-          bankName: "",
-          location: "",
-        });
-        setConsent(false);
-        setOtpVerified(false);
-        setOtp("");
-        setShowOtpInput(false);
-      })
+      setFormData({
+        name: "",
+        mobileNumber: "",
+        gold_weight: "",
+        loanAmount: 0,
+        bank: "",
+        location: "",
+      });
+      setConsent(false);
+      setOtpVerified(false);
+      setOtp("");
+      setShowOtpInput(false);
+    })
       .catch((error) => {
         console.error("Submission error:", error);
         toast({
@@ -220,7 +221,7 @@ const ReleasePledgeForm = () => {
     {
       id: "release-financier",
       label: "Financier Name *",
-      name: "bankName",
+      name: "bank",
       type: "text",
       placeholder: "Enter financier name",
       required: true,

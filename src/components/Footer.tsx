@@ -28,8 +28,8 @@ const Footer = () => {
     },
     {
       icon: SocialIcons.Mail,
-      content: "srinidhi@svsgold.com",
-      href: "mailto:srinidhi@svsgold.com",
+      content: "info@svsgold.com",
+      href: "mailto:info@svsgold.com",
       type: "link"
     }
   ];

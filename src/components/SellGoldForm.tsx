@@ -301,7 +301,7 @@ const SellGoldForm = () => {
                   }}
                   disabled={isSendingOtp}
                   className={`text-xs underline text-primary ${!canResend ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-              xw  >
+                >
                   {canResend ? 'Resend OTP' : `Resend OTP in ${resendTimer}s`}
                 </button>
               </div>

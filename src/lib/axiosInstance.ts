@@ -4,6 +4,7 @@ const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL_API,
     headers: {
         "Content-Type": "application/json",
+        "Accept": "application/json"   // override default
     },
     timeout: 10000,
 });

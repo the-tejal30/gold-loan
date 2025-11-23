@@ -71,7 +71,7 @@ const AboutUs = () => {
               <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-accent"></div>
             </div>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Your trusted partner in gold transactions, dedicated to providing genuine value and reliable service with a strong focus on customer satisfaction.
+              We’re here to make selling your gold simple, safe, and rewarding. As a trusted partner, we provide genuine value, honest pricing, and dependable service. Our team is committed to ensuring every customer feels supported, informed, and satisfied with their experience.
             </p>
           </div>
 
@@ -80,17 +80,27 @@ const AboutUs = () => {
               <h3 className="text-3xl font-bold text-foreground">
                 Who We Are
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                SVS Gold is a trusted Gold and Silver buying company that offers the best value for your precious metals. Customers can visit with their gold or silver and receive instant payment after evaluation. The process is simple, transparent, and handled with complete professionalism.
+              <p>
+                SVS Gold is a trusted gold and silver buying company committed to fairness,
+                transparency and genuine value. Many customers come to us during important
+                moments like medical needs, emergencies or loan repayments, and we take that
+                responsibility seriously.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                For customers who are unable to repay their existing gold loans, SVS Gold helps by paying the loan amount along with the interest directly to the bank, NBFC, or pawnbroker. Once the pledged gold is released, the remaining balance is paid to the customer, ensuring a smooth and worry free experience.
-              </p>
+
+              <ul className="list-disc list-inside">
+                <li>We melt gold or silver in front of the customer for complete transparency.</li>
+                <li>We help customers release pledged gold by paying the loan and interest directly to the bank, NBFC or pawnbroker.</li>
+                <li>After release, the remaining balance is paid instantly to the customer.</li>
+                <li>Pricing is based on real-time market value with no hidden charges.</li>
+              </ul>
+
+              <p><strong>We are not just here to buy gold.<br />
+                We are here to support people when they truly need it.</strong></p>
             </div>
 
             <div className="grid grid-cols-2 gap-6 animate-scale-in">
               {features.map((feature, index) => (
-                <div className="bg-card p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center" key={index}>
+                <div className="bg-card p-3 md:p-6 rounded-2xl shadow-[var(--shadow-card)] border border-border text-center" key={index}>
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <feature.Icon className="w-6 h-6 text-primary" />
                   </div>

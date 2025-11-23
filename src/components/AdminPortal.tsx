@@ -22,6 +22,7 @@ const AdminPortal = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [goldRate, setGoldRate] = useState("");
+	const [silverRate, setSilverRate] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [activeSection, setActiveSection] = useState("rate");
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -64,14 +65,15 @@ const AdminPortal = () => {
 		}
 
 		setIsSubmitting(true);
-		updateGoldPrice({ gold_price: parseFloat(goldRate) })
+		updateGoldPrice({ gold_price: parseFloat(goldRate), silver_price: parseFloat(silverRate) })
 			.then((response) => {
-				if (response.id) {
+				if (response.data) {
 					toast({
 						title: "Rate Updated! 🎉",
-						description: `Gold rate set to ₹${goldRate}/gram`,
+						description: `Gold rate set to ₹${goldRate}/gram & Gold rate set to ₹${silverRate}`,
 					});
 					setGoldRate("");
+					setSilverRate("");
 				}
 			})
 			.catch(() => {
@@ -486,9 +488,11 @@ const AdminPortal = () => {
 
 							<div className="bg-slate-900/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-800/50 shadow-2xl">
 								<div className="space-y-6">
+
+									{/* Gold Rate Field */}
 									<div>
 										<label htmlFor="gold-rate" className="block text-base font-medium text-slate-300 mb-3">
-											Rate (₹/gram)
+											Gold Rate (₹/gram)
 										</label>
 										<input
 											id="gold-rate"
@@ -502,16 +506,35 @@ const AdminPortal = () => {
 										/>
 									</div>
 
+									{/* Silver Rate Field */}
+									<div>
+										<label htmlFor="silver-rate" className="block text-base font-medium text-slate-300 mb-3">
+											Silver Rate (₹/gram)
+										</label>
+										<input
+											id="silver-rate"
+											type="number"
+											value={silverRate}
+											onChange={(e) => setSilverRate(e.target.value)}
+											onKeyPress={handleKeyPress}
+											placeholder="Enter current silver rate"
+											step="0.01"
+											className="w-full h-14 px-5 rounded-xl border-2 border-slate-800 bg-slate-950/50 text-white text-lg placeholder:text-slate-600 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+										/>
+									</div>
+
 									<button
 										onClick={handleGoldRateSubmit}
 										disabled={isSubmitting}
 										className="w-full h-14 rounded-xl bg-gradient-to-r from-primary via-primary to-accent hover:shadow-lg hover:shadow-primary/25 disabled:from-primary/50 disabled:to-accent/50 disabled:cursor-not-allowed transition-all duration-300 text-primary-foreground font-semibold text-base group relative overflow-hidden"
 									>
 										<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-										<span className="relative">{isSubmitting ? "Updating Rate..." : "Update Gold Rate"}</span>
+										<span className="relative">{isSubmitting ? "Updating Rate..." : "Update Rates"}</span>
 									</button>
+
 								</div>
 							</div>
+
 						</div>
 					)}
 

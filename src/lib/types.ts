@@ -18,6 +18,8 @@ export interface ReleasePledgeGoldPayload {
     mobileNumber: string;
     gold_weight: string;
     location: string;
+    bank: string;
+    loanAmount: number;
 }
 
 export interface ReleasePledgeGoldResponse {
@@ -31,12 +33,18 @@ export interface ReleasePledgeGoldResponse {
 
 export interface UpdateGoldPricePayload {
     gold_price: number;
+    silver_price: number;
 }
 
-export interface UpdateGoldPriceResponse {
+export interface PriceDetailsResponse {
     id: number;
     gold_price: number;
     currentDateTime: string;
+}
+
+export interface UpdateGoldPriceResponse {
+    data: PriceDetailsResponse[];
+    message: string;
 }
 
 export interface User {

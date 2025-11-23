@@ -9,18 +9,19 @@ const Services = () => {
   const [activeTab, setActiveTab] = useState("sell");
 
   const sellGoldFeatures = [
-    "Instant cash on the spot",
-    "Transparent and safe process",
-    "Best market value",
+    "Instant payment at real-time rates",
+    "On-spot melting for full transparency",
     "No hidden charges",
+    "Instant IMPS or bank transfer",
   ];
 
   const releasePledgedFeatures = [
-    "Support for any financier",
-    "Quick loan clearance",
-    "Simple and clear process",
+    "Loan release from any bank or NBFC",
+    "We pay principal and interest directly",
+    "Fast and simple gold release process",
     "Immediate balance payout",
   ];
+
 
   return (
     <section id="services" className="py-20 bg-muted relative overflow-hidden">
@@ -50,25 +51,25 @@ const Services = () => {
           </div>
 
           <div className="flex justify-center mb-8">
-            <div className="inline-flex bg-card rounded-2xl p-2 shadow-[var(--shadow-card)] border border-border">
+            <div className="inline-flex bg-card rounded-2xl p-2 shadow-[var(--shadow-card)] border border-border text-sm md:text-base">
               <button
                 onClick={() => setActiveTab("sell")}
-                className={`flex items-center space-x-3 px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${activeTab === "sell"
+                className={`flex items-center space-x-3 px-4 md:px-8 py-4 rounded-xl font-medium md:font-semibold transition-all duration-300 ${activeTab === "sell"
                   ? "bg-primary text-primary-foreground shadow-lg"
                   : "text-muted-foreground hover:text-foreground"
                   }`}
               >
-                <IconCoins className="w-5 h-5" />
+                <IconCoins className="w-5 h-5 flex-shrink-0" />
                 <span>Sell Gold</span>
               </button>
               <button
                 onClick={() => setActiveTab("release")}
-                className={`flex items-center space-x-3 px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${activeTab === "release"
+                className={`flex items-center space-x-3 px-4 md:px-8 py-4 rounded-xl font-medium md:font-semibold transition-all duration-300 ${activeTab === "release"
                   ? "bg-primary text-primary-foreground shadow-lg"
                   : "text-muted-foreground hover:text-foreground"
                   }`}
               >
-                <IconLock className="w-5 h-5" />
+                <IconLock className="w-5 h-5 flex-shrink-0" />
                 <span>Release Pledge</span>
               </button>
             </div>
@@ -78,12 +79,14 @@ const Services = () => {
             {activeTab === "sell" && (
               <div className="grid lg:grid-cols-5 gap-0 animate-fade-in">
                 <div className="lg:col-span-2 bg-gradient-to-br from-primary/10 to-accent/10 p-8 md:p-10">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6">
-                    <IconCoins className="w-8 h-8 text-primary-foreground" />
+                  <div className="flex items-center space-x-3 md:space-x-8">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 flex-shrink-0">
+                      <IconCoins className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-medium md:font-bold text-foreground mb-4">
+                      Sell Your Gold
+                    </h3>
                   </div>
-                  <h3 className="text-3xl font-bold text-foreground mb-4">
-                    Sell Your Gold
-                  </h3>
                   <p className="text-muted-foreground mb-8 leading-relaxed">
                     Walk in with your gold and get instant cash. We offer fair and
                     transparent rates based on real time market value with accurate
@@ -118,12 +121,14 @@ const Services = () => {
             {activeTab === "release" && (
               <div className="grid lg:grid-cols-5 gap-0 animate-fade-in">
                 <div className="lg:col-span-2 bg-gradient-to-br from-primary/10 to-accent/10 p-8 md:p-10">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6">
-                    <IconLock className="w-8 h-8 text-primary-foreground" />
+                  <div className="flex items-center space-x-3 md:space-x-8">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 flex-shrink-0">
+                      <IconLock className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-medium md:font-bold text-foreground mb-4">
+                      Release Pledged Gold
+                    </h3>
                   </div>
-                  <h3 className="text-3xl font-bold text-foreground mb-4">
-                    Release Pledged Gold
-                  </h3>
                   <p className="text-muted-foreground mb-8 leading-relaxed">
                     If your gold is pledged, we help by paying the loan and interest
                     directly to the bank, NBFC, or pawnbroker. Once released, the
