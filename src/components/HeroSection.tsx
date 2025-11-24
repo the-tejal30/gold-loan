@@ -8,7 +8,7 @@
 // import { RedirectIcon } from "@/icons/RedirectIcon";
 // import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 // import ChevronLeftIcon from "@/icons/ChevronLeftIcon";
-// import { sendOtp, validateOtp } from "@/integrations/api";
+// import { sendOtp, sendToGoogleSheets, validateOtp } from "@/integrations/api";
 // import { useToast } from "@/hooks/use-toast";
 
 

@@ -7,6 +7,7 @@ const LiveGoldRate = () => {
   const [activeTab, setActiveTab] = useState('gold');
   const [metalData, setMetalData] = useState([]);
   const [currentPrice, setCurrentPrice] = useState(null);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [error, setError] = useState(null);
@@ -122,6 +123,10 @@ const LiveGoldRate = () => {
       const isGold = activeTab === 'gold';
 
       const response = await getMetalPrices(isGold);
+
+      if (response) {
+        setData(response);
+      }
 
       const result = processData(response, isGold);
 
@@ -296,37 +301,69 @@ const LiveGoldRate = () => {
 
               <div className="relative grid md:grid-cols-2 gap-6 md:gap-8 items-center">
                 <div>
-                  <p className="text-white/60 text-xs md:text-sm font-bold uppercase tracking-wider mb-3">Current {isGold ? 'Gold' : 'Silver'} Price</p>
-                  {currentPrice && (
-                    <>
-                      <div className="flex items-baseline gap-2 md:gap-3 mb-4">
-                        <span className={`text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r ${isGold ? 'from-primary via-accent to-primary' : 'from-gray-400 via-gray-500 to-gray-600'} bg-clip-text text-transparent`}>
-                          {formatCurrency(currentPrice.price).replace('₹', '')}
-                        </span>
-                      </div>
-                      <p className="text-white/70 text-base md:text-lg mb-6">{isGold ? '24K Gold' : 'Pure Silver'} • {isGold ? 'Per Gram' : 'Per Kg'}</p>
+                  <p className="text-white/60 text-xs md:text-sm font-bold uppercase tracking-wider mb-3">
+                    Current {isGold ? "Gold" : "Silver"} Price
+                  </p>
 
-                      <div className={`inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 md:py-3 rounded-2xl border-2 ${priceChange.isPositive
-                        ? 'bg-green-500/20 border-green-500/50'
-                        : 'bg-red-500/20 border-red-500/50'
-                        }`}>
-                        {priceChange.isPositive ? (
-                          <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-green-400" />
-                        ) : (
-                          <TrendingDown className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-                        )}
-                        <div className="flex flex-col">
-                          <span className={`font-bold text-base md:text-lg ${priceChange.isPositive ? 'text-green-400' : 'text-red-400'}`}>
-                            {priceChange.isPositive ? '+' : '-'}₹{priceChange.value.toFixed(2)}
-                          </span>
-                          <span className={`text-xs ${priceChange.isPositive ? 'text-green-300' : 'text-red-300'}`}>
-                            {priceChange.percentage.toFixed(2)}% today
+                  {(() => {
+                    const displayedPrice =
+                      currentPrice?.price ?? (isGold ? data[data.length - 1]?.gold_price : data[data.length - 1]?.silver_price);
+
+                    if (!displayedPrice) return null;
+
+                    return (
+                      <>
+                        {/* PRICE */}
+                        <div className="flex items-baseline gap-2 md:gap-3 mb-4">
+                          <span
+                            className={`text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r ${isGold
+                              ? "from-primary via-accent to-primary"
+                              : "from-gray-400 via-gray-500 to-gray-600"
+                              } bg-clip-text text-transparent`}
+                          >
+                            {formatCurrency(displayedPrice).replace("₹", "")}
                           </span>
                         </div>
-                      </div>
-                    </>
-                  )}
+
+                        <p className="text-white/70 text-base md:text-lg mb-6">
+                          {isGold ? "24K Gold" : "Pure Silver"} • {isGold ? "Per Gram" : "Per Kg"}
+                        </p>
+
+                        {currentPrice && priceChange && (
+                          <div
+                            className={`inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 md:py-3 rounded-2xl border-2 ${priceChange.isPositive
+                              ? "bg-green-500/20 border-green-500/50"
+                              : "bg-red-500/20 border-red-500/50"
+                              }`}
+                          >
+                            {priceChange.isPositive ? (
+                              <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-green-400" />
+                            ) : (
+                              <TrendingDown className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                            )}
+
+                            <div className="flex flex-col">
+                              <span
+                                className={`font-bold text-base md:text-lg ${priceChange.isPositive ? "text-green-400" : "text-red-400"
+                                  }`}
+                              >
+                                {priceChange.isPositive ? "+" : "-"}₹
+                                {priceChange.value?.toFixed(2)}
+                              </span>
+                              <span
+                                className={`text-xs ${priceChange.isPositive ? "text-green-300" : "text-red-300"
+                                  }`}
+                              >
+                                {priceChange.percentage?.toFixed(2)}% today
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
+
 
                 {/* <div className="grid grid-cols-2 gap-3 md:gap-4">
                   <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10">

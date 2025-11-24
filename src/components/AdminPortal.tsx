@@ -70,7 +70,7 @@ const AdminPortal = () => {
 				if (response.data) {
 					toast({
 						title: "Rate Updated! 🎉",
-						description: `Gold rate set to ₹${goldRate}/gram & Silver rate set to ₹${silverRate}`,
+						description: `Gold rate set to ₹${goldRate}/gram & Silver rate set to ₹${silverRate}/kg`,
 					});
 					setGoldRate("");
 					setSilverRate("");
@@ -482,8 +482,8 @@ const AdminPortal = () => {
 									<TrendingUpIcon className="w-6 h-6 md:w-8 md:h-8 text-accent" />
 								</div>
 								<div className="flex flex-col items-center md:items-start text-center md:text-left">
-									<h2 className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-2">Gold Rate Update</h2>
-									<p className="text-sm md:text-base text-slate-400">Set current market rate per gram</p>
+									<h2 className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-2">Gold & Silver Rate Update</h2>
+									<p className="text-sm md:text-base text-slate-400">Set current market rate</p>
 								</div>
 							</div>
 
@@ -510,7 +510,7 @@ const AdminPortal = () => {
 									{/* Silver Rate Field */}
 									<div>
 										<label htmlFor="silver-rate" className="block text-base font-medium text-slate-300 mb-3">
-											Silver Rate (₹/gram)
+											Silver Rate (₹/kg)
 										</label>
 										<input
 											id="silver-rate"
