@@ -29,8 +29,8 @@ const Header = () => {
           </div>
 
           <div className="flex space-x-8">
-            <div className="hidden md:flex hero-badge">
-              <span className="text-sm font-medium text-primary">+919885588220</span>
+            <div className="hidden md:flex hero-badge animate-pulse">
+              <span className="text-base font-bold text-white">+919885588220</span>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
@@ -48,8 +48,8 @@ const Header = () => {
 
 
           <div className="flex md:hidden items-center gap-3">
-            <div className="hero-badge">
-              <span className="text-sm font-medium text-primary">+919885588220</span>
+            <div className="hero-badge animate-pulse">
+              <span className="text-base font-bold text-white">+919885588220</span>
             </div>
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2">
               {isMobileMenuOpen ? <XIcon className="w-6 h-6 text-secondary-foreground" /> : <MenuIcon className="w-6 h-6 text-secondary-foreground" />}

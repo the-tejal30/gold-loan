@@ -24,7 +24,7 @@ export const releasePledgeGoldForm = (data: ReleasePledgeGoldPayload): Promise<R
 		axiosInstance
 			.post(CONSTANTS.RELEASE_PLEDGE_GOLD, data)
 			.then((response) => {
-				sendToGoogleSheets(data, 'sell').catch(err =>
+				sendToGoogleSheets(data, 'release').catch(err =>
 					console.error('Google Sheets backup failed:', err)
 				);
 				resolve(response.data);
@@ -122,7 +122,7 @@ export const getMetalPrices = (isGold: boolean): Promise<any> => {
 
 const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
 
-const sendToGoogleSheets = async (data: any, formType: string): Promise<void> => {
+export const sendToGoogleSheets = async (data: any, formType: string): Promise<void> => {
 	try {
 		if (!GOOGLE_SCRIPT_URL) {
 			console.warn('Google Script URL not configured');

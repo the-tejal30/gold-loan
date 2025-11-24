@@ -27,6 +27,7 @@ const LiveGoldRate = () => {
       }
     });
 
+
     const timeSlots = [];
     for (let hour = 9; hour <= 20; hour++) {
       for (let minute = 0; minute < 60; minute += 15) {
@@ -121,9 +122,12 @@ const LiveGoldRate = () => {
       const isGold = activeTab === 'gold';
 
       const response = await getMetalPrices(isGold);
+
       const result = processData(response, isGold);
 
       if (result) {
+
+        console.log(result);
         setMetalData(result.data);
         setYAxisDomain(result.yAxisDomain);
         setCurrentPrice(result.currentPrice);
@@ -167,7 +171,7 @@ const LiveGoldRate = () => {
         <div className="bg-white/95 backdrop-blur-sm border border-primary/20 rounded-xl p-3 shadow-xl">
           <p className="text-xs text-gray-600 font-medium mb-1">{payload[0].payload.time}</p>
           <p className="text-xl font-bold text-primary">{formatCurrency(payload[0].value)}</p>
-          <p className="text-xs text-gray-500">per gram</p>
+          <p className="text-xs text-gray-500">{isGold ? 'per gram' : 'per kg'}</p>
         </div>
       );
     }
@@ -300,7 +304,7 @@ const LiveGoldRate = () => {
                           {formatCurrency(currentPrice.price).replace('₹', '')}
                         </span>
                       </div>
-                      <p className="text-white/70 text-base md:text-lg mb-6">{isGold ? '24K Gold' : 'Pure Silver'} • Per Gram</p>
+                      <p className="text-white/70 text-base md:text-lg mb-6">{isGold ? '24K Gold' : 'Pure Silver'} • {isGold ? 'Per Gram' : 'Per Kg'}</p>
 
                       <div className={`inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 md:py-3 rounded-2xl border-2 ${priceChange.isPositive
                         ? 'bg-green-500/20 border-green-500/50'
@@ -324,7 +328,7 @@ const LiveGoldRate = () => {
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                {/* <div className="grid grid-cols-2 gap-3 md:gap-4">
                   <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10">
                     <p className="text-white/60 text-xs font-semibold uppercase mb-2">Market Status</p>
                     <p className="text-white text-xl md:text-2xl font-bold">Open</p>
@@ -339,7 +343,7 @@ const LiveGoldRate = () => {
                     <p className="text-white/60 text-xs font-semibold uppercase mb-2">Trading Hours</p>
                     <p className="text-white text-lg md:text-xl font-bold">9:00 AM - 8:00 PM</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -353,7 +357,7 @@ const LiveGoldRate = () => {
                 <p className="text-white/60 text-sm md:text-base">15-minute interval tracking • Real-time updates</p>
               </div>
               <div className="inline-flex items-center gap-3 bg-primary/20 backdrop-blur-sm px-4 md:px-5 py-2 md:py-3 rounded-xl border border-primary/30">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-red-500 animate-scaleBlink"></div>
                 <span className="text-xs md:text-sm font-bold text-white">Live Trading</span>
               </div>
             </div>

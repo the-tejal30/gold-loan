@@ -9,7 +9,7 @@ const ReleasePledgeForm = () => {
     name: "",
     mobileNumber: "",
     gold_weight: "",
-    loanAmount: 0,
+    loanAmount: null,
     bankName: "",
     location: "",
   });
@@ -124,14 +124,14 @@ const ReleasePledgeForm = () => {
       return;
     }
 
-    if (!otpVerified) {
-      toast({
-        title: "Verification Required",
-        description: "Please verify your mobile number first",
-        variant: "destructive",
-      });
-      return;
-    }
+    // if (!otpVerified) {
+    //   toast({
+    //     title: "Verification Required",
+    //     description: "Please verify your mobile number first",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
     setIsSubmitting(true);
 
@@ -279,7 +279,7 @@ const ReleasePledgeForm = () => {
                 disabled={otpVerified}
                 className="w-full h-12 px-4 pr-24 rounded-xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               />
-              {!otpVerified && formData.mobileNumber.length === 10 && !showOtpInput && (
+              {/* {!otpVerified && formData.mobileNumber.length === 10 && !showOtpInput && (
                 <button
                   onClick={handleSendOtp}
                   disabled={isSendingOtp}
@@ -292,13 +292,13 @@ const ReleasePledgeForm = () => {
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-sm font-medium">
                   ✓ Verified
                 </span>
-              )}
+              )} */}
             </div>
           </div>
         </div>
 
         {/* OTP Verification Section */}
-        {showOtpInput && !otpVerified && (
+        {/* {showOtpInput && !otpVerified && (
           <div className="flex gap-5 w-full justify-between items-center">
             <div className="space-y-2 w-3/4">
               <label htmlFor="otp-input" className="block text-foreground font-medium text-sm">
@@ -337,7 +337,7 @@ const ReleasePledgeForm = () => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
 
         <div className="grid md:grid-cols-2 gap-5">
           {fields.slice(2, 4).map((field) => (
@@ -399,7 +399,8 @@ const ReleasePledgeForm = () => {
 
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting || !otpVerified}
+          // disabled={isSubmitting || !otpVerified}
+          disabled={isSubmitting}
           className="w-full flex items-center justify-center gap-1 h-14 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed shadow-[var(--shadow-gold)] transition-all duration-300 text-primary-foreground font-semibold text-lg group"
         >
           {isSubmitting ? "Submitting..." : "Submit Enquiry"}

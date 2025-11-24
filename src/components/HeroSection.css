@@ -87,7 +87,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: hsl(var(--primary) / 0.1);
+    background: hsl(var(--primary) / 0.5);
     backdrop-filter: blur(0.5rem);
     padding: 0.5rem 1rem;
     border-radius: 9999px;
